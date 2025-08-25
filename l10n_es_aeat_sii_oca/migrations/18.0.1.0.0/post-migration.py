@@ -57,25 +57,18 @@ def _load_csv(env, filename):
         ref = (r.get("ref") or r.get("reference") or "").strip()
         if ref:
             by_ref[(cid, ref)] = (dest, err)
+        payref = (r.get("payment_reference") or r.get("payment_ref") or "").strip()
+        if payref:
+            by_ref[(cid, payref)] = (dest, err)
     return {"by_id": by_id, "by_name": by_name, "by_ref": by_ref}
 
-def _merge_maps(a, b):
-    if not a:
-        a = {"by_id": {}, "by_name": {}, "by_ref": {}}
-    if not b:
-        b = {"by_id": {}, "by_name": {}, "by_ref": {}}
-    return {
-        "by_id": {**a.get("by_id", {}), **b.get("by_id", {})},
-        "by_name": {**a.get("by_name", {}), **b.get("by_name", {})},
-        "by_ref": {**a.get("by_ref", {}), **b.get("by_ref", {})},
-    }
-
-def _load_any(env, filenames):
-    acc = {"by_id": {}, "by_name": {}, "by_ref": {}}
+def _load_csv_any(env, *filenames):
+    """Intenta cargar el primer CSV existente de la lista."""
     for fn in filenames:
-        part = _load_csv(env, fn)
-        acc = _merge_maps(acc, part)
-    return acc
+        data = _load_csv(env, fn)
+        if any(data.values()):
+            return data
+    return {"by_id": {}, "by_name": {}, "by_ref": {}}
 
 def _apply(env, mapping, move_types):
     upd_state = upd_err = 0
@@ -138,12 +131,14 @@ def _apply(env, mapping, move_types):
             moves = env["account.move"].with_context(active_test=False).search([
                 ("move_type", "in", move_types),
                 ("company_id", "in", companies),
-                ("ref", "in", refs),
+                "|", ("ref", "in", refs),
+                     ("payment_reference", "in", refs),
             ])
             for m in moves:
                 if m.id in updated_ids:
                     continue
-                dest_state, err_txt = by_ref.get((m.company_id.id, m.ref), (None, None))
+                key = (m.company_id.id, m.ref) if (m.company_id.id, m.ref) in by_ref else (m.company_id.id, m.payment_reference)
+                dest_state, err_txt = by_ref.get(key, (None, None))
                 vals = {}
                 if dest_state and m.aeat_state != dest_state:
                     vals["aeat_state"] = dest_state
@@ -160,9 +155,8 @@ def _apply(env, mapping, move_types):
 
 def migrate(cr, version):
     env = api.Environment(cr, SUPERUSER_ID, {})
-    sales = _load_any(env, ["o16_out_aeat_states.csv", "o16_aeat_states.csv"])
-    purchases = _load_any(env, ["o16_in_aeat_states.csv"])
-
+    sales = _load_csv_any(env, "o16_out_aeat_states.csv", "o16_aeat_states.csv")
+    purchases = _load_csv(env, "o16_in_aeat_states.csv")
     s1, e1 = _apply(env, sales, ["out_invoice", "out_refund"])
     s2, e2 = _apply(env, purchases, ["in_invoice", "in_refund"])
     _logger.info("AEAT migration: states updated %s, errors updated %s", s1 + s2, e1 + e2)

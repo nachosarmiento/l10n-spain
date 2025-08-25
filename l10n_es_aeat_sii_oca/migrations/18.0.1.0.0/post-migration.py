@@ -59,6 +59,24 @@ def _load_csv(env, filename):
             by_ref[(cid, ref)] = (dest, err)
     return {"by_id": by_id, "by_name": by_name, "by_ref": by_ref}
 
+def _merge_maps(a, b):
+    if not a:
+        a = {"by_id": {}, "by_name": {}, "by_ref": {}}
+    if not b:
+        b = {"by_id": {}, "by_name": {}, "by_ref": {}}
+    return {
+        "by_id": {**a.get("by_id", {}), **b.get("by_id", {})},
+        "by_name": {**a.get("by_name", {}), **b.get("by_name", {})},
+        "by_ref": {**a.get("by_ref", {}), **b.get("by_ref", {})},
+    }
+
+def _load_any(env, filenames):
+    acc = {"by_id": {}, "by_name": {}, "by_ref": {}}
+    for fn in filenames:
+        part = _load_csv(env, fn)
+        acc = _merge_maps(acc, part)
+    return acc
+
 def _apply(env, mapping, move_types):
     upd_state = upd_err = 0
     updated_ids = set()
@@ -142,8 +160,9 @@ def _apply(env, mapping, move_types):
 
 def migrate(cr, version):
     env = api.Environment(cr, SUPERUSER_ID, {})
-    sales = _load_csv(env, "o16_aeat_states.csv")
-    purchases = _load_csv(env, "o16_in_aeat_states.csv")
+    sales = _load_any(env, ["o16_out_aeat_states.csv", "o16_aeat_states.csv"])
+    purchases = _load_any(env, ["o16_in_aeat_states.csv"])
+
     s1, e1 = _apply(env, sales, ["out_invoice", "out_refund"])
     s2, e2 = _apply(env, purchases, ["in_invoice", "in_refund"])
     _logger.info("AEAT migration: states updated %s, errors updated %s", s1 + s2, e1 + e2)

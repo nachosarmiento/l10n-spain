@@ -30,7 +30,7 @@ def _clean_err(val):
     return None
 
 def _load_csv(env, filename):
-    path = get_module_resource("l10n_es_aeat_sii_oca", "migrations", "18.0.0.0.0", filename)
+    path = get_module_resource("l10n_es_aeat_sii_oca", "migrations", "18.0.1.0.0", filename)
     if not path or not os.path.exists(path):
         return {"by_id": {}, "by_name": {}, "by_ref": {}}
     with open(path, newline="", encoding="utf-8") as f:

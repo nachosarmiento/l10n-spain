@@ -1,0 +1,1361 @@
+id,company_id,move_type,name,ref,src_state,aeat_send_error
+25182,1,out_invoice,J/2025/0031,,not_sent,
+25181,1,out_invoice,J/2025/0030,,not_sent,
+25180,1,out_invoice,J/2025/0029,,not_sent,
+25143,1,out_invoice,T/2025/0008,,sent,"{
+    'CSV': '8W9EBP58A5RL3CHP',
+    'DatosPresentacion': {
+        'NIFPresentador': 'G33465790',
+        'TimestampPre"
+25163,1,out_invoice,J/2025/0028,,sent,"{
+    'CSV': 'GBM6JESM53HLVCM4',
+    'DatosPresentacion': {
+        'NIFPresentador': 'G33465790',
+        'TimestampPre"
+25134,1,out_invoice,C/2025/0012,,sent,"{
+    'CSV': '4KNECPEB4T3ZBBGR',
+    'DatosPresentacion': {
+        'NIFPresentador': 'G33465790',
+        'TimestampPre"
+25074,1,out_invoice,J/2025/0027,,sent,"{
+    'CSV': '5LAC9K73Y5292ZFX',
+    'DatosPresentacion': {
+        'NIFPresentador': 'G33465790',
+        'TimestampPre"
+25055,1,out_invoice,T/2025/0007,,sent,"{
+    'CSV': 'YL4G8HK854JBL32Q',
+    'DatosPresentacion': {
+        'NIFPresentador': 'G33465790',
+        'TimestampPre"
+25062,1,out_invoice,J/2025/0026,,sent,"{
+    'CSV': '3FAFKLA2YEVN3LUJ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'G33465790',
+        'TimestampPre"
+25057,1,out_invoice,J/2025/0025,,sent,"{
+    'CSV': 'VRUGKVYFHJ4Q7E47',
+    'DatosPresentacion': {
+        'NIFPresentador': 'G33465790',
+        'TimestampPre"
+25051,1,out_invoice,C/2025/0011,,sent,"{
+    'CSV': 'CGQLW664HMFHUAUJ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'G33465790',
+        'TimestampPre"
+24918,1,out_invoice,C/2025/0010,,sent,"{
+    'CSV': '6LNA7P46GHP9NNZ4',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24894,1,out_invoice,C/2025/0009,,sent,"{
+    'CSV': 'WS3Q58EYEX2Z46PY',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24878,1,out_invoice,C/2025/0008,,sent_modified,"{
+    'CSV': '9RFE2BURYNSH2F4U',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24845,1,out_invoice,J/2025/0024,,sent,"{
+    'CSV': 'YC6Z5ULQ5XXXYHL6',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24833,1,out_invoice,J/2025/0023,,sent,"{
+    'CSV': 'BLP96YJE4ZVZ47H5',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24832,1,out_invoice,J/2025/0022,,sent,"{
+    'CSV': 'Y6U5EWAYATR6S8LW',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24820,1,out_invoice,J/2025/0021,,sent,"{
+    'CSV': 'SFFJVNBHHVHHEUZ8',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24746,1,out_invoice,J/2025/0020,,sent,"{
+    'CSV': '5NFUMG8MFFNXE4QV',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24559,1,out_invoice,J/2025/0019,,sent,"{
+    'CSV': 'EQFMEY8AJVQ224FE',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24486,1,out_invoice,J/2025/0018,,sent,"{
+    'CSV': 'GX9QE578NJ9X2HYC',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24462,1,out_invoice,T/2025/0006,,sent,"{
+    'CSV': '9D9N6RFAT8JTP5QB',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24327,1,out_invoice,/,,not_sent,
+24273,1,out_invoice,J/2025/0017,,sent,"{
+    'CSV': 'FER4ZKCRFE3M6P3B',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24242,1,out_invoice,C/2025/0007,,sent,"{
+    'CSV': 'H5JRXEFYLTNZPCC4',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24225,1,out_invoice,J/2025/0016,,sent,"{
+    'CSV': 'Q367RPEZDL8Q6PNR',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24224,1,out_invoice,J/2025/0015,,sent,"{
+    'CSV': 'M3J6ZL8EAGF6ADLJ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24214,1,out_invoice,J/2025/0014,,sent,"{
+    'CSV': 'UES46ZPKPGVBG7E3',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24001,1,out_invoice,T/2025/0005,,sent,"{
+    'CSV': '3H9VEXB9HA3WH6G5',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+24000,1,out_invoice,T/2025/0004,,sent,"{
+    'CSV': 'LX696JR57UQX3C4Z',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+23998,1,out_invoice,T/2025/0003,,sent,"{
+    'CSV': 'YJEA2JG6K92E683V',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+23865,1,out_invoice,C/2025/0006,,not_sent,
+23835,1,out_invoice,T/2025/0002,,sent,"{
+    'CSV': 'MUTYBVLQC562LERD',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+23834,1,out_invoice,C/2025/0005,,sent,"{
+    'CSV': '6BYRKYPBGP7SJHHZ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+23791,1,out_invoice,J/2025/0013,,sent,"{
+    'CSV': 'NVTQJ3DQHWRKE77W',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+23367,1,out_invoice,T/2025/0001,,sent,"{
+    'CSV': '5EEXCEFEM8J3BEP2',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+23368,1,out_invoice,J/2025/0012,,sent,"{
+    'CSV': 'LJCCV5XF9SJX3APE',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+23314,1,out_invoice,J/2025/0011,,sent,"{
+    'CSV': '7XQQRVXS3HDS633U',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+23539,1,out_invoice,A/2025/0007,,not_sent,
+23538,1,out_invoice,A/2025/0006,,not_sent,
+23537,1,out_invoice,A/2025/0005,,not_sent,
+23536,1,out_invoice,A/2025/0004,,not_sent,
+23535,1,out_invoice,A/2025/0003,,not_sent,
+23101,1,out_invoice,J/2025/0010,,sent,"{
+    'CSV': 'ZKFQSF8RBUNZXECZ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+23100,1,out_invoice,J/2025/0009,,sent,"{
+    'CSV': 'GA9RKNCS2B6XAZEJ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+23098,1,out_invoice,J/2025/0008,,sent,"{
+    'CSV': 'HN8PRYW2JM85P9EV',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+22530,1,out_invoice,J/2025/0007,,sent,"{
+    'CSV': 'FYCA2K767R5KEEW2',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+22529,1,out_invoice,J/2025/0006,,sent,"{
+    'CSV': '4S8G5S6T72RQG9PT',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+22173,1,out_invoice,J/2025/0005,,sent,"{
+    'CSV': 'TVJ73V3CTZ68W4BZ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+22146,1,out_invoice,J/2025/0004,,sent,"{
+    'CSV': '7UNMPTVMMXULR7M6',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+22044,1,out_invoice,J/2025/0003,,sent,"{
+    'CSV': 'CGBB2VSWB93F3D65',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+22043,1,out_invoice,J/2025/0002,,sent,"{
+    'CSV': '5YTJ8NMV3AHDRBMZ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+22042,1,out_invoice,J/2025/0001,,sent,"{
+    'CSV': 'BXTPTD24Q9TE2LGR',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+23099,1,out_invoice,C/2025/0004,,sent,"{
+    'CSV': 'H8EUB8YT7HL9T768',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+22763,1,out_invoice,C/2025/0003,,sent,"{
+    'CSV': '2C74WMVAMPFLK29D',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+22758,1,out_invoice,C/2025/0002,,sent,"{
+    'CSV': '54QSD9WLJJ8ABPRE',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+22533,1,out_invoice,C/2025/0001,,sent,"{
+    'CSV': 'ZKW97RFBC5NZLU2N',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+23133,1,out_invoice,A/2025/0002,,not_sent,
+23132,1,out_invoice,A/2025/0001,,not_sent,
+21773,1,out_invoice,J/2024/0046,,sent,"{
+    'CSV': 'VEFC3DNUTQ9SVRMA',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+21772,1,out_invoice,J/2024/0045,,sent,"{
+    'CSV': 'M7KUHYN87B9K69GB',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+21485,1,out_invoice,J/2024/0044,,sent,"{
+    'CSV': '3WBKPFFAXKY6TQY5',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+21484,1,out_invoice,J/2024/0043,,sent,"{
+    'CSV': '3UWZAVMEYCLSXB7P',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+21889,1,out_invoice,C/2024/0017,,sent,"{
+    'CSV': '9TR4Q8Z6BCZVK7W6',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+22075,1,out_invoice,A/2024/0018,,not_sent,
+22055,1,out_invoice,A/2024/0017,,not_sent,
+22054,1,out_invoice,A/2024/0016,,not_sent,
+20932,1,out_invoice,T/2024/0007,,sent,"{
+    'CSV': '447VWLGZS79EKZ5J',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+20931,1,out_invoice,T/2024/0006,,sent,"{
+    'CSV': 'Q3T2MXH5ZJ2HCG7B',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+20930,1,out_invoice,T/2024/0005,,sent,"{
+    'CSV': '7PZCM9DG2W8LD7YP',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+21288,1,out_invoice,J/2024/0042,,sent,"{
+    'CSV': 'EL8HAW2ZGLQ7ZDB2',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+21287,1,out_invoice,J/2024/0041,,sent,"{
+    'CSV': 'TYWNSN4K97ZTTA9W',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+21241,1,out_invoice,J/2024/0040,,sent,"{
+    'CSV': 'JCU8XHKCJGXEK8KS',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+21229,1,out_invoice,J/2024/0039,,sent,"{
+    'CSV': '66CXV6S73SUPSQG5',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+21069,1,out_invoice,J/2024/0038,,sent,"{
+    'CSV': 'XM56PBDGLZRC37SV',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+21034,1,out_invoice,J/2024/0037,,sent,"{
+    'CSV': 'HAVVVLHGFRJY2TQ5',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+20929,1,out_invoice,J/2024/0036,,sent,"{
+    'CSV': 'G865A2HPXGGHAMQ4',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+21556,1,out_invoice,A/2024/0015,,not_sent,
+21555,1,out_invoice,A/2024/0014,,not_sent,
+21554,1,out_invoice,A/2024/0013,,not_sent,
+20488,1,out_invoice,J/2024/0035,,sent,"{
+    'CSV': '2483JPEBC7JR9RJK',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+20467,1,out_invoice,J/2024/0034,,sent,"{
+    'CSV': 'GFUHNLAWWL39KY44',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+20460,1,out_invoice,J/2024/0033,,sent,"{
+    'CSV': 'MRLS7V29UJ7H8QB9',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+20184,1,out_invoice,J/2024/0032,,sent,"{
+    'CSV': 'FVUJBMLW4G3997XN',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+20626,1,out_invoice,C/2024/0016,,sent,"{
+    'CSV': 'W55HFQ6GY9MX38FD',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+20489,1,out_invoice,C/2024/0015,,sent,"{
+    'CSV': 'WBKL6NK9EGMCM9UW',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+20215,1,out_invoice,C/2024/0014,,sent,"{
+    'CSV': 'NUCJ475DGA2L9ZWY',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+21041,1,out_invoice,A/2024/0012,,not_sent,
+21040,1,out_invoice,A/2024/0011,,not_sent,
+21035,1,out_invoice,A/2024/0010,,not_sent,
+19939,1,out_invoice,J/2024/0031,,sent,"{
+    'CSV': 'A47QYAGDUK9F958U',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19905,1,out_invoice,J/2024/0030,,sent,"{
+    'CSV': 'CSXD7M7FTB7WFU8Z',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19600,1,out_invoice,J/2024/0029,,sent,"{
+    'CSV': 'EFFMVY734K6G4UNV',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19598,1,out_invoice,J/2024/0028,,sent,"{
+    'CSV': 'GG4Q6BGUA792ZHMU',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19988,1,out_invoice,C/2024/0013,,sent,"{
+    'CSV': 'CG43JEWRUH3PTB33',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19938,1,out_invoice,C/2024/0012,,sent,"{
+    'CSV': 'GNJ79ZU47HAPND9G',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19672,1,out_invoice,C/2024/0011,,sent,"{
+    'CSV': 'ASQKSMSC367N37LB',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19601,1,out_invoice,C/2024/0010,,sent,"{
+    'CSV': 'PH4GDEDWW4T6RLPT',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+20134,1,out_invoice,A/2024/0009,,not_sent,
+20133,1,out_invoice,A/2024/0008,,not_sent,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi"
+20132,1,out_invoice,A/2024/0007,,not_sent,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi"
+19462,1,out_invoice,T/2024/0004,,sent,"{
+    'CSV': 'TRVZCAYZ9JUFSKD6',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19289,1,out_invoice,J/2024/0027,,sent,"{
+    'CSV': 'ZCAWGYAXHSEZ33TF',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19277,1,out_invoice,J/2024/0026,,sent,"{
+    'CSV': 'GSLHX4UF8XP94NCM',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19276,1,out_invoice,J/2024/0025,,sent,"{
+    'CSV': 'B688MP9ZK75MHTH3',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19275,1,out_invoice,J/2024/0024,,sent,"{
+    'CSV': 'P4TZHQ7TGM3N7MJJ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19274,1,out_invoice,J/2024/0023,,sent,"{
+    'CSV': '4EZZYJH9B6972UM6',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19273,1,out_invoice,J/2024/0022,,sent,"{
+    'CSV': 'DTDRGR8VH6NFGJKH',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19199,1,out_invoice,J/2024/0016,,sent,"{
+    'CSV': 'V8BT5ATX9ZDR7Y32',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19523,1,out_invoice,C/2024/0009,,sent,"{
+    'CSV': 'L66KN2C53U6SCNCY',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19490,1,out_invoice,C/2024/0008,,sent,"{
+    'CSV': 'WYK5QKBXB2HSNPUY',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19489,1,out_invoice,C/2024/0007,,sent,"{
+    'CSV': 'TNM28WZVGJPSTTTK',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19278,1,out_invoice,C/2024/0006,,sent,"{
+    'CSV': 'VY36FCZ37G26TDE6',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19221,1,out_invoice,J/2024/0021,,sent,"{
+    'CSV': 'UKPZ44SASPD7UQPB',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19220,1,out_invoice,J/2024/0020,,sent,"{
+    'CSV': '4K7HHKXDTJAXCPLH',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19203,1,out_invoice,J/2024/0019,,sent,"{
+    'CSV': 'ZYM9F4526E9VPKLB',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19202,1,out_invoice,J/2024/0018,,sent,"{
+    'CSV': 'L3FHURTEJRXMZUNU',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19201,1,out_invoice,J/2024/0017,,sent,"{
+    'CSV': 'CGQ8G5RGFY4D72HT',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19185,1,out_invoice,J/2024/0015,,sent,"{
+    'CSV': '4NEKGL95NUSWWHZ6',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19128,1,out_invoice,J/2024/0014,,sent,"{
+    'CSV': 'ZKQ2KKXDB4V4RYQT',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19102,1,out_invoice,J/2024/0013,,sent,"{
+    'CSV': 'A56NGK3SHRFHEK89',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+19089,1,out_invoice,J/2024/0012,,sent,"{
+    'CSV': '256UA956AVQH89ZR',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+18735,1,out_invoice,T/2024/0003,,sent,"{
+    'CSV': 'WDDKDSNM57XS92XJ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+18904,1,out_invoice,J/2024/0011,,sent,"{
+    'CSV': 'APCCVR39BMH35B2X',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+18777,1,out_invoice,C/2024/0005,,sent,"{
+    'CSV': 'JNX9FK29ABUSFRKC',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+18447,1,out_invoice,C/2024/0004,,sent,"{
+    'CSV': 'FY2NP7Z3WKRKSDTW',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+18199,1,out_invoice,J/2024/0010,,sent,"{
+    'CSV': 'SNZBHGDHXGMB5X9K',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+18210,1,out_invoice,C/2024/0003,,sent_modified,"{
+    'CSV': 'HB92ZBQ6PB4BMCAR',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+17472,1,out_invoice,T/2024/0002,,sent,"{
+    'CSV': 'EPXGBQT2CF6UNQMP',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+17340,1,out_invoice,J/2024/0009,,sent,"{
+    'CSV': 'QSPARGNH6WPHLGVB',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+17184,1,out_invoice,T/2024/0001,,sent,"{
+    'CSV': 'CYNEME5QBPVDM36E',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+17306,1,out_invoice,C/2024/0002,,sent,"{
+    'CSV': 'FY8FLE5GGNDGB8HE',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+16598,1,out_invoice,C/2024/0001,,sent,"{
+    'CSV': 'YURH95Z43Q88GV6R',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+17392,1,out_invoice,A/2024/0006,,not_sent,
+17391,1,out_invoice,A/2024/0005,,not_sent,
+17390,1,out_invoice,A/2024/0004,,not_sent,
+17389,1,out_invoice,A/2024/0003,,not_sent,
+17388,1,out_invoice,A/2024/0002,,not_sent,
+17387,1,out_invoice,A/2024/0001,,not_sent,
+16574,1,out_invoice,J/2024/0008,,sent,"{
+    'CSV': 'SZHD35M3XZG62E53',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+16464,1,out_invoice,J/2024/0007,,sent,"{
+    'CSV': 'N4XSRWV9G2HLVNL3',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+16408,1,out_invoice,J/2024/0006,,sent,"{
+    'CSV': 'PR3HHT5HZWB3P4ZR',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+16404,1,out_invoice,J/2024/0005,,sent,"{
+    'CSV': 'VH76ZU9G8ZJ6DJUK',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+16345,1,out_invoice,J/2024/0004,,sent,"{
+    'CSV': 'XL6UYDWGFNVDJND9',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+16238,1,out_invoice,J/2024/0003,,sent,"{
+    'CSV': 'PRRQ6PRR2VLMQ2TJ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+16189,1,out_invoice,J/2024/0002,,sent,"{
+    'CSV': '98KZT9MWLX4K83Q7',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+16062,1,out_invoice,J/2024/0001,,sent,"{
+    'CSV': 'WZJCBL6GZLDU66M4',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15900,1,out_invoice,T/2023/0015,,sent,"{
+    'CSV': 'GV724KSVNAM6SS6J',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15827,1,out_invoice,T/2023/0014,,sent,"{
+    'CSV': 'GM934S7RHWQPPAST',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15850,1,out_invoice,J/2023/0037,,sent,"{
+    'CSV': '879LRU7H8JV3WBWN',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15828,1,out_invoice,J/2023/0036,,sent,"{
+    'CSV': 'MBL5N7MTCTFDS29A',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15355,1,out_invoice,J/2023/0035,,sent,"{
+    'CSV': '5P3E6THHQLLJSVXK',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15290,1,out_invoice,J/2023/0034,,sent,"{
+    'CSV': 'HFX52M3Q9HAZLHEC',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15289,1,out_invoice,J/2023/0033,,sent,"{
+    'CSV': 'YB95XMMR3F6PMMPU',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15189,1,out_invoice,J/2023/0032,,sent,"{
+    'CSV': '2383NY76XDDMCHQJ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15108,1,out_invoice,J/2023/0031,,sent,"{
+    'CSV': '2ZF4G63F3VRRWP59',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15107,1,out_invoice,J/2023/0030,,sent,"{
+    'CSV': '48P2YT4644UFV6NJ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15106,1,out_invoice,J/2023/0029,,sent,"{
+    'CSV': 'ZV9B8AKHEPDQRRGD',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15105,1,out_invoice,J/2023/0028,,sent,"{
+    'CSV': 'LG7B9CRA976GZP62',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15847,1,out_invoice,C/2023/0018,,sent,"{
+    'CSV': 'N8SRPFPQ63EDD5TS',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15292,1,out_invoice,C/2023/0017,,sent,"{
+    'CSV': 'M97AG9YN9N2S7BMC',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15120,1,out_invoice,C/2023/0016,,sent,"{
+    'CSV': 'VZCAZECJTAZE7JJK',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+16084,1,out_invoice,A/2023/0021,,not_sent,
+16083,1,out_invoice,A/2023/0020,,not_sent,
+16082,1,out_invoice,A/2023/0019,,not_sent,
+16081,1,out_invoice,A/2023/0018,,not_sent,
+14940,1,out_invoice,T/2023/0013,,sent,"{
+    'CSV': 'WJ9QX4C3K5KYJ7KA',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+14939,1,out_invoice,T/2023/0012,,sent,"{
+    'CSV': 'FA6QL45ZK5Q4RDGT',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+14549,1,out_invoice,T/2023/0011,,sent,"{
+    'CSV': '3B5SNYBXY4EF3GFB',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15006,1,out_invoice,J/2023/0027,,sent,"{
+    'CSV': '3ERSK3KUEL5P4K99',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+14997,1,out_invoice,J/2023/0026,,sent,"{
+    'CSV': '9VQDT76R53NXKJ78',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+14706,1,out_invoice,J/2023/0025,,sent,"{
+    'CSV': '4NPWQQMLB3QDBCAF',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+14686,1,out_invoice,J/2023/0024,,sent,"{
+    'CSV': 'FZS4JBXJBTEZAJW7',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+14685,1,out_invoice,J/2023/0023,,sent,"{
+    'CSV': '9GT88S3F2TGPUCHA',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+14547,1,out_invoice,C/2023/0015,,sent,"{
+    'CSV': '55G7MKQ62483FV5H',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+15209,1,out_invoice,A/2023/0017,,not_sent,
+15208,1,out_invoice,A/2023/0016,,not_sent,
+15207,1,out_invoice,A/2023/0015,,not_sent,
+15206,1,out_invoice,A/2023/0014,,not_sent,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi"
+13948,1,out_invoice,J/2023/0022,,sent,"{
+    'CSV': '3QG8XYUCUJ76MR6V',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+13919,1,out_invoice,J/2023/0021,,sent,"{
+    'CSV': '7TMMMTFCJKD4HUAP',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+13918,1,out_invoice,C/2023/0014,,sent,"{
+    'CSV': 'B8N46CYG68QXYRHA',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+13908,1,out_invoice,C/2023/0013,,sent,"{
+    'CSV': '6VCEBJK2YJXVG3N5',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+14620,1,out_invoice,A/2023/0013,,not_sent,
+14618,1,out_invoice,A/2023/0012,,not_sent,
+14617,1,out_invoice,A/2023/0011,,not_sent,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi"
+13718,1,out_invoice,J/2023/0020,,sent_modified,"{
+    'CSV': 'WSGW9GH6BD2JQLUV',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+13664,1,out_invoice,J/2023/0019,,sent,"{
+    'CSV': 'LGMK2NAJJM8BYWWT',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+13663,1,out_invoice,J/2023/0018,,sent,"{
+    'CSV': 'Z2WPNVL96RTWYZNJ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+13613,1,out_invoice,J/2023/0017,,sent,"{
+    'CSV': 'NC3X5XPU9Q249MM6',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+13330,1,out_invoice,J/2023/0016,,sent,"{
+    'CSV': 'KBYLPULLFEM8STNR',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+13331,1,out_invoice,C/2023/0012,,sent,"{
+    'CSV': 'LS4DU7MUBEURAFNU',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+13854,1,out_invoice,A/2023/0010,,not_sent,
+13853,1,out_invoice,A/2023/0009,,not_sent,
+13852,1,out_invoice,A/2023/0008,,not_sent,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi"
+13253,1,out_invoice,T/2023/0010,,sent,"{
+    'CSV': 'D725DYCYM9PA7ZDP',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+13289,1,out_invoice,J/2023/0015,,sent,"{
+    'CSV': 'N6V6UG6W6BYWRLFH',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+13256,1,out_invoice,J/2023/0014,,sent,"{
+    'CSV': 'BPFJMR7CWB9SVF2A',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+13255,1,out_invoice,J/2023/0013,,sent,"{
+    'CSV': 'KARTKM2C6ZCAETYQ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+12366,1,out_invoice,J/2023/0012,,sent,"{
+    'CSV': 'ZSKL7Y6A37GDTER8',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+12365,1,out_invoice,J/2023/0011,,sent,"{
+    'CSV': 'ZUWKMQD8MSHDCNUP',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+12364,1,out_invoice,J/2023/0010,,sent,"{
+    'CSV': 'GTVSJHRRS42CHJZY',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+13258,1,out_invoice,C/2023/0011,,sent,"{
+    'CSV': 'LJBFJQKHUEFSWJ6V',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+13257,1,out_invoice,C/2023/0010,,sent,"{
+    'CSV': 'WC9G53KLQHTUKMFZ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+13254,1,out_invoice,C/2023/0009,,sent,"{
+    'CSV': 'YGSNGYHWPK2GGYF4',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+12291,1,out_invoice,T/2023/0009,,sent,"{
+    'CSV': '8M8YG54YMRV47Y5T',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+12273,1,out_invoice,J/2023/0009,,sent,"{
+    'CSV': 'W5UJZTC3MRSYLKK5',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+12321,1,out_invoice,C/2023/0008,,sent,"{
+    'CSV': '6SJGWPQG83CYDDQ7',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+12312,1,out_invoice,C/2023/0007,,sent,"{
+    'CSV': 'R6JVCYJG7Y2KHXXA',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+12263,1,out_invoice,T/2023/0008,,sent,"{
+    'CSV': '6F9PUNDP33SFXRP9',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+11684,1,out_invoice,T/2023/0007,T7,sent,"{
+    'CSV': 'Z39QEWGWS5DBXJHG',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+11680,1,out_invoice,T/2023/0006,T6,sent,"{
+    'CSV': '4SR9VD833KG6NV2E',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+11679,1,out_invoice,T/2023/0005,T5,sent,"{
+    'CSV': 'VQMEHCGM8WMA6CU9',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+12259,1,out_invoice,J/2023/0008,,sent,"{
+    'CSV': 'VCNAU5XFXNXXLKZZ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+11683,1,out_invoice,J/2023/0007,J7,sent,"{
+    'CSV': 'QU5256SCDTTT5NM3',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+12257,1,out_invoice,C/2023/0006,,sent,"{
+    'CSV': 'TRR253WVQM58ZYD9',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+11611,1,out_invoice,C/2023/0005,C5,sent_modified,"{
+    'CSV': '5AJ6EXSP5A45ZU8L',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+11593,1,out_invoice,C/2023/0004,C4,sent,"{
+    'CSV': '3GGSU5J8EVHMTUDD',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+11592,1,out_invoice,C/2023/0003,C3,sent,"{
+    'CSV': 'QBT9HJMQXTFTKVLA',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+11629,1,out_invoice,A/2023/0007,A07 A B007,not_sent,
+11622,1,out_invoice,A/2023/0006,A06 A B006,not_sent,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi"
+11474,1,out_invoice,T/2023/0004,T4,sent,"{
+    'CSV': 'EGNVP9NKM3STLMGM',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+11354,1,out_invoice,T/2023/0003,T3,sent,"{
+    'CSV': 'L9VLQBEBZ68PEKW5',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+11426,1,out_invoice,J/2023/0006,J6,sent,"{
+    'CSV': 'BYHCPCF8PAJCF2CM',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+11370,1,out_invoice,C/2023/0002,C2,sent,"{
+    'CSV': '6QEAUWXATNX5GTKL',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+10370,1,out_invoice,T/2023/0002,T2,sent,"{
+    'CSV': 'H3HSBWHQZQUY5UMM',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+11269,1,out_invoice,J/2023/0005,J5,sent,"{
+    'CSV': 'GXXBS8KLTTKEGBLP',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+10629,1,out_invoice,J/2023/0004,J4,sent,"{
+    'CSV': 'UDTH5PPMS7W66QQY',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+10619,1,out_invoice,C/2023/0001,C1,sent,"{
+    'CSV': '77W4ENDCMU8RFGDQ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+11363,1,out_invoice,A/2023/0005,A05 A B005,not_sent,
+11362,1,out_invoice,A/2023/0004,A04 A B004,not_sent,
+11361,1,out_invoice,A/2023/0003,A03 A B003,not_sent,
+11360,1,out_invoice,A/2023/0002,A02 a B002,not_sent,
+11359,1,out_invoice,A/2023/0001,A01 a B001,not_sent,
+9262,1,out_invoice,T/2023/0001,T1,sent,"{
+    'CSV': 'QWQJ8RYYPLFGMX85',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+9508,1,out_invoice,J/2023/0003,J3,sent,"{
+    'CSV': 'RF9V3FKVX7KYHVSC',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+9505,1,out_invoice,J/2023/0002,J2,sent,"{
+    'CSV': '3U344ZULATQFUPT8',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+9224,1,out_invoice,J/2023/0001,J1,sent,"{
+    'CSV': 'QDP3YAWDALU47TD8',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+9140,1,out_invoice,T/2022/0016,T16,sent,"{
+    'CSV': '3Z6X947YAVZKQBEV',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+9175,1,out_invoice,J/2022/0028,J28,sent,"{
+    'CSV': 'YUVRYUEVXE7SSE28',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+9168,1,out_invoice,J/2022/0027,J27,sent,"{
+    'CSV': 'E6FPYMAASZFTKAN7',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+9102,1,out_invoice,C/2022/0008,C8,sent,"{
+    'CSV': 'QR9LP5XCGTR4LUY4',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+9219,1,out_invoice,A/2022/0022,A22 A B022,not_sent,
+9218,1,out_invoice,A/2022/0021,A21 A B021,not_sent,
+9217,1,out_invoice,A/2022/0020,A20 A B020,not_sent,
+8930,1,out_invoice,T/2022/0015,T15,sent,"{
+    'CSV': 'GD3T7NSVEM9MQFJM',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+9090,1,out_invoice,J/2022/0026,J26,sent,"{
+    'CSV': 'LK37P53LA7ZLB6XM',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+9016,1,out_invoice,J/2022/0025,J25,sent,"{
+    'CSV': 'UDZNHQ4RFSTMLH49',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+9015,1,out_invoice,J/2022/0024,J24,sent,"{
+    'CSV': 'Q4CLL5N6SJ3NB6WB',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+8955,1,out_invoice,J/2022/0023,J23,sent,"{
+    'CSV': '94TW2XZNN4U8KY5F',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+8917,1,out_invoice,J/2022/0022,J22,sent,"{
+    'CSV': 'XSSE888ATAV6N65R',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+8877,1,out_invoice,J/2022/0021,J21,sent,"{
+    'CSV': 'D2BDF5W5ENPJEP99',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+9041,1,out_invoice,C/2022/0007,C7,sent,"{
+    'CSV': 'ZASWG3VUX9W66446',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+9125,1,out_invoice,A/2022/0019,A19 A B019,not_sent,
+9124,1,out_invoice,A/2022/0018,A18 A B018,not_sent,
+9123,1,out_invoice,A/2022/0017,A17 A B017,not_sent,
+9122,1,out_invoice,A/2022/0016,A16 A B016,not_sent,
+9121,1,out_invoice,A/2022/0015,A15 A B015,not_sent,
+8489,1,out_invoice,T/2022/0014,T14,sent,"{
+    'CSV': 'EX2YGX5XDK2EKCA2',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+8252,1,out_invoice,T/2022/0013,T13,sent,"{
+    'CSV': 'YBN9HZ9BKJGD84X4',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+8305,1,out_invoice,J/2022/0020,J20,sent,"{
+    'CSV': 'C2CALTRCQPX39DJT',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+8292,1,out_invoice,J/2022/0019,J19,sent,"{
+    'CSV': '6BWMHLFVE9YJKDGN',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+8249,1,out_invoice,J/2022/0018,J18,sent,"{
+    'CSV': '3E6A5CJG47UZYS25',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+7703,1,out_invoice,C/2022/0005,C5,sent,"{
+    'CSV': '3ATRQ8P998U63AWM',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+8890,1,out_invoice,A/2022/0014,A14 A B014,not_sent,
+8887,1,out_invoice,A/2022/0013,A13 A B013,not_sent,
+8886,1,out_invoice,A/2022/0012,A12 A B012,not_sent,
+8885,1,out_invoice,A/2022/0011,A11 A B011,not_sent,
+7782,1,out_invoice,J/2022/0017,J17,sent,"{
+    'CSV': '38D5MU3UTLWFEWDV',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+7772,1,out_invoice,J/2022/0016,J16,sent,"{
+    'CSV': 'WCRCVGRPDGDL5K8L',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+7746,1,out_invoice,J/2022/0015,J15,sent,"{
+    'CSV': 'D4ZAK9RNC7WBME2H',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+7735,1,out_invoice,J/2022/0014,J14,sent,"{
+    'CSV': 'HRLY7NM5PULJD7NG',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+7734,1,out_invoice,J/2022/0013,J13,sent,"{
+    'CSV': 'P9ACCF4ZRRGTW8JJ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+7733,1,out_invoice,J/2022/0012,J12,sent,"{
+    'CSV': 'H6EEC4NMBFMPSC8S',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+7732,1,out_invoice,J/2022/0011,J11,sent,"{
+    'CSV': 'H36KFEQ6EK2H5EDY',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+7731,1,out_invoice,J/2022/0010,J10,sent,"{
+    'CSV': 'ZQB2J9Q8VCVYG9FL',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+8241,1,out_invoice,A/2022/0010,A10 A B010,not_sent,
+8240,1,out_invoice,A/2022/0009,A09 A B009,not_sent,
+8239,1,out_invoice,A/2022/0008,A08 A B008,not_sent,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi"
+7729,1,out_invoice,J/2022/0009,J9,sent,"{
+    'CSV': 'HG4ESLPN65VW237W',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+7726,1,out_invoice,C/2022/0006,C6,sent,"{
+    'CSV': 'N5QWSXDR6Y5UK2EL',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+7689,1,out_invoice,C/2022/0004,C4,sent,"{
+    'CSV': 'F6F9G2P4DKXVMAUU',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+6846,1,out_invoice,T/2022/0012,T12,sent,"{
+    'CSV': 'VKJE9ZADBSX9UEG8',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+6845,1,out_invoice,T/2022/0011,T11,sent,"{
+    'CSV': 'Z78JFZYPAGY28ZKL',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+6751,1,out_invoice,T/2022/0010,T10,sent,"{
+    'CSV': 'C8WM8LRXJLV2HY9X',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+6750,1,out_invoice,J/2022/0008,J8,sent,"{
+    'CSV': 'Z4WQM38EFLMQAKCB',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+6736,1,out_invoice,J/2022/0007,J7,sent,"{
+    'CSV': '46PQU2N89MAT7AYR',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+6735,1,out_invoice,J/2022/0006,J6,sent,"{
+    'CSV': 'DVKXT7WASZURGJWR',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+6733,1,out_invoice,T/2022/0009,T9,sent,"{
+    'CSV': 'CT9PDTU7YZY4BKKV',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+6677,1,out_invoice,T/2022/0008,T8,sent,"{
+    'CSV': 'BYHEL2NM3HBK46UZ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+6676,1,out_invoice,T/2022/0007,T7,sent,"{
+    'CSV': 'U5ZEQ6LS8TE3AK25',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+6654,1,out_invoice,T/2022/0006,T6,sent,"{
+    'CSV': 'JR8ZCGU8SQ7M3DAZ',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+6521,1,out_invoice,T/2022/0005,T5,sent,"{
+    'CSV': 'D9VYEATZK2WQ97YF',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+6674,1,out_refund,RT/2022/0002,"Reversión de: T/2022/0004, Anulación factura por errores concepto",sent,"{
+    'CSV': 'W63AM5MG78G32P4S',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+6673,1,out_refund,RT/2022/0001,"Reversión de: T/2022/0006, Anulación factura por errores concepto",sent,"{
+    'CSV': 'W34BX8D843L2MZR3',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+6414,1,out_invoice,A/2022/0023,A04 A B004,not_sent,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi"
+6420,1,out_invoice,A/2022/0007,A07 A B007,not_sent,
+6419,1,out_invoice,A/2022/0006,A06 A B006,not_sent,
+6418,1,out_invoice,A/2022/0005,A05 A B005,not_sent,
+4099,1,out_invoice,T/2022/0004,T4,sent,"{
+    'CSV': 'WL98694LZ5BMCH5Y',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+3895,1,out_invoice,T/2022/0003,T3,sent,"{
+    'CSV': 'XNRWH8DUZX739KKC',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+3894,1,out_invoice,T/2022/0002,T2,sent,"{
+    'CSV': '7MH87U82AK7B3MDW',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+3928,1,out_invoice,J/2022/0005,J5,sent,"{
+    'CSV': 'LK7XNATXLB5SVNKL',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+3883,1,out_invoice,J/2022/0004,J4,sent,"{
+    'CSV': '2WRB7PV4HJ3JEB4E',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+3893,1,out_invoice,C/2022/0003,C3,sent,"{
+    'CSV': '5PXE9H42RLWF5CH3',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+3886,1,out_invoice,C/2022/0002,C2,sent,"{
+    'CSV': 'QTYQAS8RFWHGQT6U',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+4275,1,out_invoice,A/2022/0003,A03 A B003,not_sent,
+4274,1,out_invoice,A/2022/0002,A02 a B002,not_sent,
+3550,1,out_invoice,T/2022/0001,T1,sent,"{
+    'CSV': 'LZRMHR679XYKSTAV',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+3877,1,out_invoice,J/2022/0003,J3,sent,"{
+    'CSV': '3EDQC233URAMUX7D',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+3876,1,out_invoice,J/2022/0002,J2,sent,"{
+    'CSV': 'G2T3BU9QFFU482VG',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+3697,1,out_invoice,J/2022/0001,J1,sent,"{
+    'CSV': 'AC2CSF9EFBV543T2',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+3696,1,out_invoice,C/2022/0001,C1,sent,"{
+    'CSV': 'UDPNJ2RNNP67S57W',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+4273,1,out_invoice,A/2022/0001,A01 a B001,not_sent,
+3044,1,out_invoice,T/2021/0008,T8,sent,"{
+    'CSV': 'GGD3QTFP32KEMC2K',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+3043,1,out_invoice,J/2021/0019,J19,sent,"{
+    'CSV': 'XRMPAJKZ9HWB3TQC',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+3867,1,out_invoice,A/2021/0027,A15 A B015,not_sent,
+3865,1,out_invoice,A/2021/0026,A14 A B014,not_sent,
+3419,1,out_invoice,A/2021/0025,A13 A B013,not_sent,
+2888,1,out_invoice,J/2021/0018,J18,sent,"{
+    'CSV': 'W3B7JUWAGSGYSYLM',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+2847,1,out_invoice,J/2021/0017,J17,sent,"{
+    'CSV': 'CK3YRGX5VX85855L',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+2591,1,out_invoice,C/2021/0007,C7,sent,"{
+    'CSV': '7434FHAY9Y329AD7',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+2335,1,out_invoice,J/2021/0016,J16,sent,"{
+    'CSV': 'DWYYLG4AH98QZQQ2',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+807,1,out_invoice,T/2021/0007,T7,not_sent,
+806,1,out_invoice,T/2021/0006,T6,not_sent,
+810,1,out_invoice,J/2021/0015,J15,sent,"{
+    'CSV': 'LFZ5YEQ3QYNQW8Y2',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+809,1,out_invoice,J/2021/0014,J14,sent,"{
+    'CSV': 'JQCJDBHL7J9GCJJ2',
+    'DatosPresentacion': {
+        'NIFPresentador': 'B74125311',
+        'TimestampPre"
+805,1,out_invoice,J/2021/0013,J13,not_sent,
+804,1,out_invoice,J/2021/0012,J12,not_sent,
+803,1,out_invoice,J/2021/0011,J11,not_sent,
+802,1,out_invoice,J/2021/0010,J10,not_sent,
+801,1,out_invoice,J/2021/0009,J9,not_sent,
+808,1,out_invoice,J/2021/0003,J3,not_sent,
+799,1,out_invoice,C/2021/0006,C6,not_sent,
+798,1,out_invoice,C/2021/0005,C5,not_sent,
+797,1,out_invoice,A/2021/0024,A08 A B008,not_sent,
+796,1,out_invoice,A/2021/0023,A07 A B007,not_sent,
+795,1,out_invoice,A/2021/0022,A06 A B006,not_sent,
+794,1,out_invoice,A/2021/0021,A05 A B005,not_sent,
+793,1,out_invoice,A/2021/0020,A04 A B004,not_sent,
+792,1,out_invoice,A/2021/0019,A03 A B003,not_sent,
+3021,1,out_invoice,A/2021/0017,A12 A B012,not_sent,
+3020,1,out_invoice,A/2021/0016,A11 A B011,not_sent,
+3019,1,out_invoice,A/2021/0015,A10 A B010,not_sent,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi"
+3018,1,out_invoice,A/2021/0014,A09 A B009,not_sent,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi"
+3239,1,out_invoice,C/2021/0008,C8,not_sent,
+625,1,out_invoice,C/2021/0004,C4,not_sent,
+624,1,out_invoice,C/2021/0003,C3,not_sent,
+623,1,out_invoice,C/2021/0002,C2,not_sent,
+622,1,out_invoice,C/2021/0001,C1,not_sent,
+621,1,out_invoice,A/2021/0018,A02 a B002,not_sent,
+620,1,out_invoice,A/2021/0013,A01 A B001,not_sent,
+660,1,out_invoice,T/2021/0005,T5,not_sent,
+655,1,out_invoice,J/2021/0008,J8,not_sent,
+654,1,out_invoice,J/2021/0007,J7,not_sent,
+653,1,out_invoice,J/2021/0006,J6,not_sent,
+651,1,out_invoice,J/2021/0005,J5,not_sent,
+650,1,out_invoice,J/2021/0004,J4,not_sent,
+659,1,out_invoice,T/2021/0004,T4,not_sent,
+658,1,out_invoice,T/2021/0003,T3,not_sent,
+657,1,out_invoice,T/2021/0002,T2,not_sent,
+656,1,out_invoice,T/2021/0001,T1,not_sent,
+649,1,out_invoice,J/2021/0002,J2,not_sent,
+648,1,out_invoice,J/2021/0001,J1,not_sent,

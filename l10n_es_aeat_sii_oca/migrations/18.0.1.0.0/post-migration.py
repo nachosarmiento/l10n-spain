@@ -17,7 +17,7 @@ MAP = {
     "cancelled_modified": "cancelled_modified",
 }
 
-ERR_RE = re.compile(r'^(1104|1117|1157|2024|3000|3002)\b')
+ERR_RE = re.compile(r'^\d{3,4}\b')
 
 def _clean_err(val):
     if not val:
@@ -25,9 +25,7 @@ def _clean_err(val):
     s = str(val).strip().strip('"').strip("'")
     if s.lower() in ("false", "none", "null", "ninguno"):
         return None
-    if ERR_RE.match(s):
-        return s[:180]
-    return None
+    return s[:180]
 
 def _load_csv(env, filename):
     path = get_module_resource("l10n_es_aeat_sii_oca", "migrations", "18.0.1.0.0", filename)
@@ -44,11 +42,11 @@ def _load_csv(env, filename):
         src = (r.get("src_state") or r.get("aeat_state") or r.get("sii_state") or "").strip()
         if not cid or not src:
             continue
-        dest = MAP.get(src)
+        dest = MAP.get(src, src)
         if not dest:
             continue
-        err = _clean_err(r.get("aeat_send_error") or r.get("error") or "")
-        rid = (r.get("id") or "").strip()
+        err = _clean_err(r.get("aeat_send_error") or r.get("sii_send_error") or r.get("error") or "")
+        rid = (r.get("id") or r.get("move_id") or "").strip()
         if rid.isdigit():
             by_id[int(rid)] = (cid, dest, err)
         name = (r.get("name") or "").strip()
@@ -63,7 +61,6 @@ def _load_csv(env, filename):
     return {"by_id": by_id, "by_name": by_name, "by_ref": by_ref}
 
 def _load_csv_any(env, *filenames):
-    """Intenta cargar el primer CSV existente de la lista."""
     for fn in filenames:
         data = _load_csv(env, fn)
         if any(data.values()):
@@ -73,6 +70,7 @@ def _load_csv_any(env, *filenames):
 def _apply(env, mapping, move_types):
     upd_state = upd_err = 0
     updated_ids = set()
+
     idmap = mapping.get("by_id", {})
     if idmap:
         ids = [i for i in idmap.keys() if isinstance(i, int)]
@@ -86,17 +84,18 @@ def _apply(env, mapping, move_types):
                 if cid and cid != m.company_id.id:
                     continue
                 vals = {}
-                if dest_state and m.aeat_state != dest_state:
+                if dest_state and not (m.aeat_state or "").strip():
                     vals["aeat_state"] = dest_state
                     upd_state += 1
                 if "aeat_send_error" in m._fields:
-                    cur = (m.aeat_send_error or "").strip() or None
-                    if err_txt != cur:
+                    cur = (m.aeat_send_error or "").strip()
+                    if (not cur) and err_txt:
                         vals["aeat_send_error"] = err_txt or False
                         upd_err += 1
                 if vals:
                     m.write(vals)
                     updated_ids.add(m.id)
+
     by_name = mapping.get("by_name", {})
     if by_name:
         companies = list({k[0] for k in by_name})
@@ -112,17 +111,18 @@ def _apply(env, mapping, move_types):
                     continue
                 dest_state, err_txt = by_name.get((m.company_id.id, m.name), (None, None))
                 vals = {}
-                if dest_state and m.aeat_state != dest_state:
+                if dest_state and not (m.aeat_state or "").strip():
                     vals["aeat_state"] = dest_state
                     upd_state += 1
                 if "aeat_send_error" in m._fields:
-                    cur = (m.aeat_send_error or "").strip() or None
-                    if err_txt != cur:
+                    cur = (m.aeat_send_error or "").strip()
+                    if (not cur) and err_txt:
                         vals["aeat_send_error"] = err_txt or False
                         upd_err += 1
                 if vals:
                     m.write(vals)
                     updated_ids.add(m.id)
+
     by_ref = mapping.get("by_ref", {})
     if by_ref:
         companies = list({k[0] for k in by_ref})
@@ -140,22 +140,23 @@ def _apply(env, mapping, move_types):
                 key = (m.company_id.id, m.ref) if (m.company_id.id, m.ref) in by_ref else (m.company_id.id, m.payment_reference)
                 dest_state, err_txt = by_ref.get(key, (None, None))
                 vals = {}
-                if dest_state and m.aeat_state != dest_state:
+                if dest_state and not (m.aeat_state or "").strip():
                     vals["aeat_state"] = dest_state
                     upd_state += 1
                 if "aeat_send_error" in m._fields:
-                    cur = (m.aeat_send_error or "").strip() or None
-                    if err_txt != cur:
+                    cur = (m.aeat_send_error or "").strip()
+                    if (not cur) and err_txt:
                         vals["aeat_send_error"] = err_txt or False
                         upd_err += 1
                 if vals:
                     m.write(vals)
                     updated_ids.add(m.id)
+
     return upd_state, upd_err
 
 def migrate(cr, version):
     env = api.Environment(cr, SUPERUSER_ID, {})
-    sales = _load_csv_any(env, "o16_out_aeat_states.csv", "o16_aeat_states.csv")
+    sales = _load_csv_any(env, "sii_errors_clientes_v16.csv", "o16_out_aeat_states.csv", "o16_aeat_states.csv")
     purchases = _load_csv(env, "o16_in_aeat_states.csv")
     s1, e1 = _apply(env, sales, ["out_invoice", "out_refund"])
     s2, e2 = _apply(env, purchases, ["in_invoice", "in_refund"])

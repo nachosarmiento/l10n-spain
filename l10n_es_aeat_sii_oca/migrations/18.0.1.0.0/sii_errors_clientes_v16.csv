@@ -1,0 +1,11 @@
+id,name,company_id,move_type,invoice_date,amount_total,sii_send_error,sii_state,sii_send_failed
+11622,A/2023/0006,1,out_invoice,2023-04-30,5102.5,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi",not_sent,True
+8239,A/2022/0008,1,out_invoice,2022-09-30,177980.83,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi",not_sent,True
+20132,A/2024/0007,1,out_invoice,2024-09-30,287652.88,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi",not_sent,True
+6414,A/2022/0023,1,out_invoice,2022-03-31,10474.05,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi",not_sent,True
+3018,A/2021/0014,1,out_invoice,2021-11-30,171068.65,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi",not_sent,True
+3019,A/2021/0015,1,out_invoice,2021-11-30,25713.0,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi",not_sent,True
+13852,A/2023/0008,1,out_invoice,2023-09-30,195686.39,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi",not_sent,True
+14617,A/2023/0011,1,out_invoice,2023-10-31,196872.66,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi",not_sent,True
+15206,A/2023/0014,1,out_invoice,2023-11-30,85340.84,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi",not_sent,True
+20133,A/2024/0008,1,out_invoice,2024-09-30,117683.43,"1329 | Cuando el tipo de factura es F2, la suma de las bases imponi",not_sent,True

@@ -25,7 +25,7 @@ def _clean_err(val):
     s = str(val).strip().strip('"').strip("'")
     if s.lower() in ("false", "none", "null", "ninguno"):
         return None
-    return s[:180]
+    return s[:180] if ERR_RE.match(s) else None
 
 def _load_csv(env, filename):
     path = get_module_resource("l10n_es_aeat_sii_oca", "migrations", "18.0.1.0.0", filename)
@@ -45,7 +45,7 @@ def _load_csv(env, filename):
         dest = MAP.get(src, src)
         if not dest:
             continue
-        err = _clean_err(r.get("aeat_send_error") or r.get("sii_send_error") or r.get("error") or "")
+        err = _clean_err(r.get("aeat_send_error") or r.get("sii_send_error") or "")
         rid = (r.get("id") or r.get("move_id") or "").strip()
         if rid.isdigit():
             by_id[int(rid)] = (cid, dest, err)

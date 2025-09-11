@@ -60,12 +60,31 @@ def _load_csv(env, filename):
             by_ref[(cid, payref)] = (dest, err)
     return {"by_id": by_id, "by_name": by_name, "by_ref": by_ref}
 
-def _load_csv_any(env, *filenames):
+# NUEVO: fusiona varias fuentes; la primera tiene prioridad
+def _merge_mappings(*mappings):
+    res = {"by_id": {}, "by_name": {}, "by_ref": {}}
+    for m in mappings:
+        for k in ("by_id", "by_name", "by_ref"):
+            # no sobrescribimos claves ya puestas (prioridad a la primera fuente)
+            for key, val in m.get(k, {}).items():
+                if key not in res[k]:
+                    res[k][key] = val
+    return res
+
+def _load_csv_merge(env, *filenames):
+    maps = []
     for fn in filenames:
-        data = _load_csv(env, fn)
-        if any(data.values()):
-            return data
-    return {"by_id": {}, "by_name": {}, "by_ref": {}}
+        maps.append(_load_csv(env, fn))
+    return _merge_mappings(*maps)
+
+# NUEVO: regla de actualización
+def _should_update_state(current, new):
+    cur = (current or "").strip()
+    newv = (new or "").strip()
+    if not newv:
+        return False
+    # permitimos sobrescribir si está vacío o venía como 'not_sent'
+    return cur in ("", "not_sent")
 
 def _apply(env, mapping, move_types):
     upd_state = upd_err = 0
@@ -84,7 +103,7 @@ def _apply(env, mapping, move_types):
                 if cid and cid != m.company_id.id:
                     continue
                 vals = {}
-                if dest_state and not (m.aeat_state or "").strip():
+                if dest_state and _should_update_state(m.aeat_state, dest_state):
                     vals["aeat_state"] = dest_state
                     upd_state += 1
                 if "aeat_send_error" in m._fields:
@@ -111,7 +130,7 @@ def _apply(env, mapping, move_types):
                     continue
                 dest_state, err_txt = by_name.get((m.company_id.id, m.name), (None, None))
                 vals = {}
-                if dest_state and not (m.aeat_state or "").strip():
+                if dest_state and _should_update_state(m.aeat_state, dest_state):
                     vals["aeat_state"] = dest_state
                     upd_state += 1
                 if "aeat_send_error" in m._fields:
@@ -140,7 +159,7 @@ def _apply(env, mapping, move_types):
                 key = (m.company_id.id, m.ref) if (m.company_id.id, m.ref) in by_ref else (m.company_id.id, m.payment_reference)
                 dest_state, err_txt = by_ref.get(key, (None, None))
                 vals = {}
-                if dest_state and not (m.aeat_state or "").strip():
+                if dest_state and _should_update_state(m.aeat_state, dest_state):
                     vals["aeat_state"] = dest_state
                     upd_state += 1
                 if "aeat_send_error" in m._fields:
@@ -156,8 +175,19 @@ def _apply(env, mapping, move_types):
 
 def migrate(cr, version):
     env = api.Environment(cr, SUPERUSER_ID, {})
-    sales = _load_csv_any(env, "sii_errors_clientes_v16.csv", "o16_out_aeat_states.csv", "o16_aeat_states.csv")
-    purchases = _load_csv(env, "o16_in_aeat_states.csv")
+    # Prioridad: nuevos CSV de 16 (v2 / out/in), luego legacy si existen
+    sales = _load_csv_merge(
+        env,
+        "o16_out_aeat_states_v2.csv",   # nuevo (export directo 16)
+        "o16_out_aeat_states.csv",      # legacy
+        "o16_aeat_states.csv",          # legacy alternativo
+        "sii_errors_clientes_v16.csv",  # dataset antiguo (complemento)
+    )
+    purchases = _load_csv_merge(
+        env,
+        "o16_in_aeat_states_v2.csv",    # nuevo (export directo 16)
+        "o16_in_aeat_states.csv",       # legacy
+    )
     s1, e1 = _apply(env, sales, ["out_invoice", "out_refund"])
     s2, e2 = _apply(env, purchases, ["in_invoice", "in_refund"])
     _logger.info("AEAT migration: states updated %s, errors updated %s", s1 + s2, e1 + e2)

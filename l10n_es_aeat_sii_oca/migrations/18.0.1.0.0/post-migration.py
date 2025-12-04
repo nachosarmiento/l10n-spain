@@ -175,7 +175,9 @@ def _apply(env, mapping, move_types):
 
 def migrate(cr, version):
     env = api.Environment(cr, SUPERUSER_ID, {})
-    # Prioridad: nuevos CSV de 16 (v2 / out/in), luego legacy si existen
+    # Prioridad: CSV unificado completo si existe (o16_all_aeat_states.csv),
+    # luego específicos por tipo (v2 / out/in) y finalmente legacy.
+    all_states = _load_csv(env, "o16_all_aeat_states.csv")
     sales = _load_csv_merge(
         env,
         "o16_out_aeat_states_v2.csv",   # nuevo (export directo 16)
@@ -188,6 +190,11 @@ def migrate(cr, version):
         "o16_in_aeat_states_v2.csv",    # nuevo (export directo 16)
         "o16_in_aeat_states.csv",       # legacy
     )
+    # Fusionamos dando prioridad al CSV completo si existe; no se pisa lo ya
+    # cargado de fuentes anteriores.
+    sales = _merge_mappings(all_states, sales)
+    purchases = _merge_mappings(all_states, purchases)
+
     s1, e1 = _apply(env, sales, ["out_invoice", "out_refund"])
     s2, e2 = _apply(env, purchases, ["in_invoice", "in_refund"])
     _logger.info("AEAT migration: states updated %s, errors updated %s", s1 + s2, e1 + e2)

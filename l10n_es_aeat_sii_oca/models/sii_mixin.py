@@ -170,8 +170,8 @@ class SiiMixin(models.AbstractModel):
 
     def _filter_sii_unlink_not_possible(self):
         """Filter records that we do not allow to be deleted, all those
-        that are not in not_sent sii status."""
-        return self.filtered(lambda rec: rec.aeat_state != "not_sent")
+        that are not in not_sent sii status or False."""
+        return self.filtered(lambda rec: rec.aeat_state not in ["not_sent", False])
 
     @api.ondelete(at_uninstall=False)
     def _unlink_except_sii(self):
@@ -252,6 +252,8 @@ class SiiMixin(models.AbstractModel):
         return header
 
     def _cancel_send_to_sii(self):
+        if not any(self.sudo().mapped("sii_send_date")):
+            return True
         try:
             self.sudo().write({"sii_send_date": False})
         except Exception:
@@ -368,6 +370,9 @@ class SiiMixin(models.AbstractModel):
             if (
                 (gen_type != 3 or country_code == "ES")
                 and not partner.vat
+                and not (
+                    partner.aeat_identification_type and partner.aeat_identification
+                )
                 and not is_simplified_invoice
             ):
                 raise UserError(self.env._("The partner has not a VAT configured."))
@@ -422,6 +427,7 @@ class SiiMixin(models.AbstractModel):
             return exempt_cause
 
     def _get_tax_info(self):
+        # TODO: To be renamed to _get_sii_tax_info
         raise NotImplementedError()
 
     def _get_sii_tax_req(self, tax):

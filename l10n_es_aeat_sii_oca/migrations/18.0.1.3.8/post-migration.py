@@ -99,7 +99,10 @@ def _split_vals(val):
     if len(val) == 4:
         cid, dest, err, header = val
         return (cid, dest, err, header, None)
-    return val
+    if len(val) == 5:
+        return val
+    # fallback: ignore extra values
+    return val[:5]
 
 def _apply(env, mapping, move_types):
     upd_state = upd_err = upd_payload = 0
@@ -153,7 +156,7 @@ def _apply(env, mapping, move_types):
             for m in moves:
                 if m.id in updated_ids:
                     continue
-                dest_state, err_txt, header_sent, content_sent = _split_vals(by_name.get((m.company_id.id, m.name)))
+                _, dest_state, err_txt, header_sent, content_sent = _split_vals(by_name.get((m.company_id.id, m.name)))
                 vals = {}
                 if dest_state and _should_update_state(m.aeat_state, dest_state):
                     vals["aeat_state"] = dest_state
@@ -192,7 +195,7 @@ def _apply(env, mapping, move_types):
                 if m.id in updated_ids:
                     continue
                 key = (m.company_id.id, m.ref) if (m.company_id.id, m.ref) in by_ref else (m.company_id.id, m.payment_reference)
-                dest_state, err_txt, header_sent, content_sent = _split_vals(by_ref.get(key))
+                _, dest_state, err_txt, header_sent, content_sent = _split_vals(by_ref.get(key))
                 vals = {}
                 if dest_state and _should_update_state(m.aeat_state, dest_state):
                     vals["aeat_state"] = dest_state

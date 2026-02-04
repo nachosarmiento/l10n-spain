@@ -28,11 +28,19 @@ def _clean_err(val):
     return s[:180] if ERR_RE.match(s) else None
 
 def _load_csv(env, filename):
-    path = get_module_resource("l10n_es_aeat_sii_oca", "migrations", "18.0.1.0.0", filename)
-    if not path or not os.path.exists(path):
+    candidates = [
+        get_module_resource("l10n_es_aeat_sii_oca", "migrations", "18.0.1.3.8", filename),
+        get_module_resource("l10n_es_aeat_sii_oca", "migrations", "18.0.1.0.0", filename),
+        get_module_resource("l10n_es_aeat_sii_oca", "migrations", filename),
+    ]
+    path = next((p for p in candidates if p and os.path.exists(p)), None)
+    if not path:
+        _logger.info("AEAT migration: CSV not found %s (searched 18.0.1.3.8, 18.0.1.0.0, root)", filename)
         return {"by_id": {}, "by_name": {}, "by_ref": {}}
+    _logger.info("AEAT migration: loading CSV %s", path)
     with open(path, newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
+    _logger.info("AEAT migration: loaded %s rows from %s", len(rows), filename)
     by_id, by_name, by_ref = {}, {}, {}
     for r in rows:
         try:
@@ -109,6 +117,7 @@ def _apply(env, mapping, move_types):
     updated_ids = set()
 
     idmap = mapping.get("by_id", {})
+    _logger.info("AEAT migration: mapping sizes id=%s name=%s ref=%s for types=%s", len(idmap), len(mapping.get("by_name", {})), len(mapping.get("by_ref", {})), move_types)
     if idmap:
         ids = [i for i in idmap.keys() if isinstance(i, int)]
         if ids:

@@ -134,6 +134,10 @@ class TestL10nEsAeatMod190Base(TestL10nEsAeatModBase):
         self.assertEqual(customer_record.retenciones_dinerarias, 543)
         self.assertEqual(customer_record.percepciones_dinerarias_incap, 1500)
         self.assertEqual(customer_record.retenciones_dinerarias_incap, 225)
+        # Confirm must fail if report lines are changed after calculation.
+        supplier_record.percepciones_dinerarias += 1
+        with self.assertRaises(UserError):
+            model190.button_confirm()
         records = model190.partner_record_ids
         model190_form = Form(model190)
         with model190_form.partner_record_ids.new() as record:
@@ -163,6 +167,12 @@ class TestL10nEsAeatMod190Base(TestL10nEsAeatModBase):
         second_invoice.fiscal_position_id = self.fiscal_position
         self.assertTrue(second_invoice.aeat_perception_key_id)
         second_invoice._post()
+        self.assertTrue(second_invoice.invoice_line_ids.mapped("aeat_perception_key_id"))
+        self.assertFalse(
+            second_invoice.line_ids.filtered("exclude_from_invoice_tab").mapped(
+                "aeat_perception_key_id"
+            )
+        )
         model190 = self.env["l10n.es.aeat.mod190.report"].create(
             {
                 "company_id": self.company.id,

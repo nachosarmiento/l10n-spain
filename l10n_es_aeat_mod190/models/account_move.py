@@ -69,3 +69,27 @@ class AccountMove(models.Model):
                     ]
                 )
             )
+
+    def _assign_mod190_fiscal_position(self):
+        fiscal_position_model = self.env["account.fiscal.position"]
+        for move in self.filtered(
+            lambda x: x.is_invoice(include_receipts=True)
+            and x.partner_id
+            and not x.fiscal_position_id
+        ):
+            delivery_partner = move.partner_shipping_id or move.partner_id
+            move.fiscal_position_id = fiscal_position_model.with_company(
+                move.company_id
+            )._get_fiscal_position(move.partner_id, delivery=delivery_partner)
+
+    @api.onchange("partner_id")
+    def _onchange_partner_id(self):
+        res = super()._onchange_partner_id()
+        self._assign_mod190_fiscal_position()
+        return res
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        moves = super().create(vals_list)
+        moves._assign_mod190_fiscal_position()
+        return moves

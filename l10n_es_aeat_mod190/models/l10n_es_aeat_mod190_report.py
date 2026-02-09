@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, exceptions, fields, models
+from odoo.tools import float_compare
 
 from odoo.addons.l10n_es_aeat.models.spanish_states_mapping import SPANISH_STATES
 
@@ -110,6 +111,25 @@ class L10nEsAeatMod190Report(models.Model):
             )
 
     def button_confirm(self):
+        for report in self:
+            percepciones = sum(
+                report.partner_record_ids.mapped("percepciones_dinerarias")
+            ) + sum(report.partner_record_ids.mapped("percepciones_en_especie")) + sum(
+                report.partner_record_ids.mapped("percepciones_dinerarias_incap")
+            ) + sum(
+                report.partner_record_ids.mapped("percepciones_en_especie_incap")
+            )
+            retenciones = sum(
+                report.partner_record_ids.mapped("retenciones_dinerarias")
+            ) + sum(report.partner_record_ids.mapped("retenciones_dinerarias_incap"))
+            if (
+                report.casilla_01 != len(report.partner_record_ids)
+                or float_compare(report.casilla_02, percepciones, precision_digits=2)
+                or float_compare(report.casilla_03, retenciones, precision_digits=2)
+            ):
+                raise exceptions.UserError(
+                    _("You have to recalculate the report before confirm it.")
+                )
         self._check_report_lines()
         self.partner_record_ids._check_b01()
         return super().button_confirm()

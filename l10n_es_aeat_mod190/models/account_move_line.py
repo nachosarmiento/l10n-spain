@@ -61,7 +61,12 @@ class AccountMoveLine(models.Model):
         for line in self:
             aeat_perception_key_id = False
             aeat_perception_subkey_id = False
-            if line.move_id.is_invoice() and line.move_id.aeat_perception_key_id:
+            if (
+                line.move_id.is_invoice(include_receipts=True)
+                and not line.exclude_from_invoice_tab
+                and line.id in line.move_id.invoice_line_ids.ids
+                and line.move_id.aeat_perception_key_id
+            ):
                 aeat_perception_key_id = line.move_id.aeat_perception_key_id.id
                 aeat_perception_subkey_id = line.move_id.aeat_perception_subkey_id.id
             line.update(

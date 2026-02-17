@@ -16,17 +16,6 @@ except ImportError:  # pragma: no cover
 
 _logger = logging.getLogger(__name__)
 
-_renamed_xmlids = [
-    (
-        "l10n_es_aeat_mod190.aeat_mod190_main_export_line_8",
-        "l10n_es_aeat_mod190.aeat_mod190_main_export_line_08",
-    ),
-    (
-        "l10n_es_aeat_mod190.aeat_mod190_main_export_line_9",
-        "l10n_es_aeat_mod190.aeat_mod190_main_export_line_09",
-    ),
-]
-
 
 def _migrate_partner_subkeys_from_csv(env):
     csv_path = Path(__file__).parent / "mod190_partner_subkeys_o16.csv"
@@ -132,5 +121,4 @@ def _migrate_partner_subkeys_from_csv(env):
 
 @openupgrade.migrate()
 def migrate(env, version):
-    openupgrade.rename_xmlids(env.cr, _renamed_xmlids)
     _migrate_partner_subkeys_from_csv(env)

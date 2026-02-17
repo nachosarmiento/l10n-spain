@@ -1,5 +1,5 @@
 # Copyright 2019 Creu Blanca
-# Copyright 2024 Tecnativa - Víctor Martínez
+# Copyright 2024 Tecnativa - Victor Martinez
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, exceptions, fields, models
@@ -17,201 +17,287 @@ class L10nEsAeatMod190Report(models.Model):
     _period_monthly = False
     _period_yearly = True
 
-    casilla_01 = fields.Integer(
-        string="[01] Recipients",
-        compute="_compute_casilla_01",
-        readonly=False,
-        store=True,
-    )
-    casilla_02 = fields.Float(
-        string="[02] Amount of perceptions",
-        compute="_compute_casilla_02",
-        readonly=False,
-        store=True,
-    )
-    casilla_03 = fields.Float(
-        string="[03] Amount of retentions",
-        compute="_compute_casilla_03",
-        readonly=False,
-        store=True,
-    )
+    casilla_01 = fields.Integer(string="[01] Recipients", readonly=True)
+    casilla_02 = fields.Float(string="[02] Amount of perceptions")
+    casilla_03 = fields.Float(string="[03] Amount of retentions")
     partner_record_ids = fields.One2many(
         comodel_name="l10n.es.aeat.mod190.report.line",
         inverse_name="report_id",
         string="Partner records",
     )
-    registro_manual = fields.Boolean(
-        string="Manual records",
-        default=False,
-    )
-
-    @api.depends("partner_record_ids")
-    def _compute_casilla_01(self):
-        for item in self:
-            item.casilla_01 = len(item.partner_record_ids)
-
-    @api.depends(
-        "registro_manual",
-        "partner_record_ids",
-        "partner_record_ids.percepciones_dinerarias",
-        "partner_record_ids.percepciones_en_especie",
-        "partner_record_ids.percepciones_dinerarias_incap",
-        "partner_record_ids.percepciones_en_especie_incap",
-        "tax_line_ids",
-    )
-    def _compute_casilla_02(self):
-        for item in self:
-            value = 0
-            if item.registro_manual:
-                value += sum(item.mapped("partner_record_ids.percepciones_dinerarias"))
-                value += sum(item.mapped("partner_record_ids.percepciones_en_especie"))
-                value += sum(
-                    item.mapped("partner_record_ids.percepciones_dinerarias_incap")
-                )
-                value += sum(
-                    item.mapped("partner_record_ids.percepciones_en_especie_incap")
-                )
-            else:
-                tax_lines = item.tax_line_ids.filtered(
-                    lambda x: x.field_number in {11, 13, 15, 18}
-                )
-                for move_line in tax_lines.move_line_ids:
-                    value += move_line.debit - move_line.credit
-            item.casilla_02 = value
-
-    @api.depends(
-        "registro_manual",
-        "partner_record_ids",
-        "partner_record_ids.retenciones_dinerarias",
-        "partner_record_ids.retenciones_dinerarias_incap",
-        "tax_line_ids",
-    )
-    def _compute_casilla_03(self):
-        for item in self:
-            value = 0
-            if item.registro_manual:
-                value += sum(item.mapped("partner_record_ids.retenciones_dinerarias"))
-                value += sum(
-                    item.mapped("partner_record_ids.retenciones_dinerarias_incap")
-                )
-            else:
-                tax_lines = item.tax_line_ids.filtered(
-                    lambda x: x.field_number in {12, 14, 16, 19}
-                )
-                for move_line in tax_lines.move_line_ids:
-                    value += move_line.credit - move_line.debit
-            item.casilla_03 = value
+    registro_manual = fields.Boolean(string="Manual records", default=False)
+    calculado = fields.Boolean(string="Calculated", default=False)
 
     def _check_report_lines(self):
-        """Checks if all the fields of all the report lines
-        (partner records) are filled"""
-        if any(not item.partner_record_ok for item in self.partner_record_ids):
-            raise exceptions.UserError(
-                _("All partner records fields (country, VAT number) " "must be filled.")
-            )
+        """Checks if all report line fields are filled."""
+        for report in self:
+            for partner_record in report.partner_record_ids:
+                if not partner_record.partner_record_ok:
+                    raise exceptions.UserError(
+                        _(
+                            "All partner records fields (country, VAT number) "
+                            "must be filled."
+                        )
+                    )
 
     def button_confirm(self):
         for report in self:
-            percepciones = sum(
-                report.partner_record_ids.mapped("percepciones_dinerarias")
-            ) + sum(report.partner_record_ids.mapped("percepciones_en_especie")) + sum(
-                report.partner_record_ids.mapped("percepciones_dinerarias_incap")
-            ) + sum(
-                report.partner_record_ids.mapped("percepciones_en_especie_incap")
-            )
-            retenciones = sum(
-                report.partner_record_ids.mapped("retenciones_dinerarias")
-            ) + sum(report.partner_record_ids.mapped("retenciones_dinerarias_incap"))
-            if (
-                report.casilla_01 != len(report.partner_record_ids)
-                or float_compare(report.casilla_02, percepciones, precision_digits=2)
-                or float_compare(report.casilla_03, retenciones, precision_digits=2)
-            ):
+            valid = report.casilla_01 == len(report.partner_record_ids)
+
+            percepciones = 0.0
+            retenciones = 0.0
+            for line in report.partner_record_ids:
+                percepciones += (
+                    line.percepciones_dinerarias
+                    + line.percepciones_en_especie
+                    + line.percepciones_dinerarias_incap
+                    + line.percepciones_en_especie_incap
+                )
+                retenciones += (
+                    line.retenciones_dinerarias + line.retenciones_dinerarias_incap
+                )
+
+            if float_compare(report.casilla_02, percepciones, precision_digits=2) != 0:
+                valid = False
+            if float_compare(report.casilla_03, retenciones, precision_digits=2) != 0:
+                valid = False
+
+            if not valid:
                 raise exceptions.UserError(
                     _("You have to recalculate the report before confirm it.")
                 )
+
         self._check_report_lines()
-        self.partner_record_ids._check_b01()
         return super().button_confirm()
 
+    # flake8: noqa: C901
     def calculate(self):
         res = super().calculate()
-        manual_records = self.filtered(lambda x: x.registro_manual)
-        manual_records.partner_record_ids.unlink()
-        for report in self - manual_records:
+        line_model = self.env["l10n.es.aeat.mod190.report.line"]
+        for report in self:
+            if not report.registro_manual:
+                report.partner_record_ids.unlink()
+
             tax_lines = report.tax_line_ids.filtered(
-                lambda x, report=report: x.field_number
-                in (11, 12, 13, 14, 15, 16, 17, 18, 19)
+                lambda x: x.field_number in (11, 12, 13, 14, 15, 16)
                 and x.res_id == report.id
             )
             tax_line_vals = {}
-            partner_vals = []
-            for line in tax_lines.move_line_ids:
-                rp = line.partner_id
-                key_id = line.aeat_perception_key_id or rp.aeat_perception_key_id
-                subkey_id = (
-                    line.aeat_perception_subkey_id or rp.aeat_perception_subkey_id
-                )
-                if rp.id not in tax_line_vals:
-                    tax_line_vals[rp.id] = {}
-                if key_id.id not in tax_line_vals[rp.id]:
-                    tax_line_vals[rp.id][key_id.id] = {}
-                if subkey_id.id not in tax_line_vals[rp.id][key_id.id]:
-                    tax_line_vals[rp.id][key_id.id][subkey_id.id] = {}
-                    if not rp.aeat_perception_key_id:
+
+            for tax_line in tax_lines:
+                for move_line in tax_line.move_line_ids:
+                    partner = move_line.partner_id
+                    key_id = move_line.aeat_perception_key_id or partner.aeat_perception_key_id
+                    subkey_id = (
+                        move_line.aeat_perception_subkey_id
+                        or partner.aeat_perception_subkey_id
+                    )
+
+                    if not key_id:
                         raise exceptions.UserError(
                             _(
                                 "The perception key of the partner, %(partner)s. "
                                 "Must be filled."
                             )
-                            % ({"partner": rp.name})
+                            % {"partner": partner.name}
                         )
-                    values = report._get_line_mod190_vals(rp, key_id, subkey_id)
-                    partner_vals.append(values)
-                    tax_line_vals[rp.id][key_id.id][subkey_id.id] = values
-            # Set partner_record_ids
-            report.partner_record_ids = [(5, 0)] + [(0, 0, x) for x in partner_vals]
+
+                    tax_line_vals.setdefault(partner.id, {})
+                    tax_line_vals[partner.id].setdefault(key_id.id, {})
+
+                    subkey_key = subkey_id.id if subkey_id else False
+                    if subkey_key not in tax_line_vals[partner.id][key_id.id]:
+                        tax_line_vals[partner.id][key_id.id][subkey_key] = {}
+                        partner_record_exists = report.partner_record_ids.filtered(
+                            lambda r, p=partner, k=key_id, s=subkey_id: r.partner_id == p
+                            and r.aeat_perception_key_id == k
+                            and r.aeat_perception_subkey_id == s
+                        )
+                        if partner_record_exists:
+                            tax_line_vals[partner.id][key_id.id][subkey_key] = False
+                        else:
+                            tax_line_vals[partner.id][key_id.id][
+                                subkey_key
+                            ] = report._get_line_mod190_vals(partner, key_id, subkey_id)
+
+                    if report.registro_manual:
+                        continue
+
+                    values = tax_line_vals[partner.id][key_id.id][subkey_key]
+                    if not values:
+                        continue
+
+                    percepciones_dinerarias = 0.0
+                    retenciones_dinerarias = 0.0
+                    percepciones_especie = 0.0
+                    ingresos_repercutidos = 0.0
+
+                    if tax_line.field_number in (11, 15) and tax_line.res_id == report.id:
+                        percepciones_dinerarias += move_line.debit - move_line.credit
+                    if tax_line.field_number in (12, 16) and tax_line.res_id == report.id:
+                        retenciones_dinerarias += move_line.credit - move_line.debit
+                    if tax_line.field_number == 13 and tax_line.res_id == report.id:
+                        percepciones_especie += move_line.debit - move_line.credit
+                        ingresos_repercutidos += move_line.credit - move_line.debit
+
+                    if not partner.discapacidad or partner.discapacidad == "0":
+                        values["percepciones_dinerarias"] += percepciones_dinerarias
+                        values["retenciones_dinerarias"] += retenciones_dinerarias
+                        values["percepciones_en_especie"] += (
+                            percepciones_especie - ingresos_repercutidos
+                        )
+                        values["ingresos_a_cuenta_efectuados"] += percepciones_especie
+                        values["ingresos_a_cuenta_repercutidos"] += ingresos_repercutidos
+                    else:
+                        values["percepciones_dinerarias_incap"] += percepciones_dinerarias
+                        values["retenciones_dinerarias_incap"] += retenciones_dinerarias
+                        values["percepciones_en_especie_incap"] += (
+                            percepciones_especie - ingresos_repercutidos
+                        )
+                        values["ingresos_a_cuenta_efectuados_incap"] += percepciones_especie
+                        values["ingresos_a_cuenta_repercutidos_incap"] += ingresos_repercutidos
+
+            registros = 0
+            for partner_vals in tax_line_vals.values():
+                for key_vals in partner_vals.values():
+                    for values in key_vals.values():
+                        registros += 1
+                        if values:
+                            line_model.create(values)
+
+            report._calculate_amount(registros)
+            report.calculado = True
+
         return res
 
-    def _get_line_mod190_vals(self, rp, key_id, subkey_id):
-        codigo_provincia = SPANISH_STATES.get(rp.state_id.code)
-        if not codigo_provincia:
-            raise exceptions.UserError(
-                _("The state is not defined in the partner, %s") % rp.name
+    def _calculate_amount(self, registros):
+        self.ensure_one()
+        percepciones = 0.0
+        retenciones = 0.0
+
+        if self.registro_manual:
+            registros = 0
+            for line in self.partner_record_ids:
+                registros += 1
+                percepciones += (
+                    line.percepciones_dinerarias
+                    + line.percepciones_en_especie
+                    + line.percepciones_dinerarias_incap
+                    + line.percepciones_en_especie_incap
+                )
+                retenciones += (
+                    line.retenciones_dinerarias + line.retenciones_dinerarias_incap
+                )
+        else:
+            percepciones_lines = self.tax_line_ids.filtered(
+                lambda x: x.field_number in (11, 13, 15)
+                and x.model == "l10n.es.aeat.mod190.report"
+                and x.res_id == self.id
             )
-        return {
-            "partner_id": rp.id,
+            for tax_line in percepciones_lines:
+                for move_line in tax_line.move_line_ids:
+                    percepciones += move_line.debit - move_line.credit
+
+            retenciones_lines = self.tax_line_ids.filtered(
+                lambda x: x.field_number in (12, 14, 16)
+                and x.model == "l10n.es.aeat.mod190.report"
+                and x.res_id == self.id
+            )
+            for tax_line in retenciones_lines:
+                for move_line in tax_line.move_line_ids:
+                    retenciones += move_line.credit - move_line.debit
+
+        self.casilla_01 = registros
+        self.casilla_02 = percepciones
+        self.casilla_03 = retenciones
+
+    def _get_line_mod190_vals(self, partner, key_id, subkey_id):
+        state_code = SPANISH_STATES.get(partner.state_id.code)
+        if not state_code:
+            exceptions.UserError(
+                _("The state is not defined in the partner, %s") % partner.name
+            )
+
+        vals = {
+            "report_id": self.id,
+            "partner_id": partner.id,
+            "partner_vat": partner.vat,
             "aeat_perception_key_id": key_id.id,
-            "aeat_perception_subkey_id": subkey_id.id,
+            "aeat_perception_subkey_id": subkey_id.id if subkey_id else False,
+            "codigo_provincia": state_code,
+            "ceuta_melilla": partner.ceuta_melilla,
+            "partner_record_ok": True,
+            "percepciones_dinerarias": 0,
+            "retenciones_dinerarias": 0,
+            "percepciones_en_especie": 0,
+            "ingresos_a_cuenta_efectuados": 0,
+            "ingresos_a_cuenta_repercutidos": 0,
+            "percepciones_dinerarias_incap": 0,
+            "retenciones_dinerarias_incap": 0,
+            "percepciones_en_especie_incap": 0,
+            "ingresos_a_cuenta_efectuados_incap": 0,
+            "ingresos_a_cuenta_repercutidos_incap": 0,
         }
 
-    def _get_grouped_data(self, field_number, domain):
-        return {
-            (
-                item["partner_id"][0],
-                item["aeat_perception_key_id"] and item["aeat_perception_key_id"][0],
-                item["aeat_perception_subkey_id"]
-                and item["aeat_perception_subkey_id"][0],
-            ): item["credit"] - item["debit"]
-            for item in self.env["account.move.line"].read_group(
-                self._get_move_line_domain(
-                    self.date_start,
-                    self.date_end,
-                    self.tax_line_ids.filtered(
-                        lambda x: x.field_number == field_number
-                    ).map_line_id,
-                )
-                + domain,
-                ["credit", "debit"],
-                ["partner_id", "aeat_perception_key_id", "aeat_perception_subkey_id"],
-                lazy=False,
+        if key_id.ad_required + (subkey_id.ad_required if subkey_id else 0) >= 2:
+            vals.update(
+                {
+                    "a_nacimiento": partner.a_nacimiento,
+                    "discapacidad": partner.discapacidad,
+                    "movilidad_geografica": partner.movilidad_geografica,
+                    "representante_legal_vat": partner.representante_legal_vat,
+                    "situacion_familiar": partner.situacion_familiar,
+                    "nif_conyuge": partner.nif_conyuge,
+                    "contrato_o_relacion": partner.contrato_o_relacion,
+                    "hijos_y_descendientes_m": partner.hijos_y_descendientes_m,
+                    "hijos_y_descendientes_m_entero": partner.hijos_y_descendientes_m_entero,
+                    "hijos_y_descendientes": partner.hijos_y_descendientes_m,
+                    "hijos_y_descendientes_entero": partner.hijos_y_descendientes_entero,
+                    "computo_primeros_hijos_1": partner.computo_primeros_hijos_1,
+                    "computo_primeros_hijos_2": partner.computo_primeros_hijos_2,
+                    "computo_primeros_hijos_3": partner.computo_primeros_hijos_3,
+                    "hijos_y_desc_discapacidad_33": partner.hijos_y_desc_discapacidad_33,
+                    "hijos_y_desc_discapacidad_entero_33": partner.hijos_y_desc_discapacidad_entero_33,
+                    "hijos_y_desc_discapacidad_mr": partner.hijos_y_desc_discapacidad_mr,
+                    "hijos_y_desc_discapacidad_entero_mr": partner.hijos_y_desc_discapacidad_entero_mr,
+                    "hijos_y_desc_discapacidad_66": partner.hijos_y_desc_discapacidad_66,
+                    "hijos_y_desc_discapacidad_entero_66": partner.hijos_y_desc_discapacidad_entero_66,
+                    "ascendientes": partner.ascendientes,
+                    "ascendientes_entero": partner.ascendientes_entero,
+                    "ascendientes_m75": partner.ascendientes_m75,
+                    "ascendientes_entero_m75": partner.ascendientes_entero_m75,
+                    "ascendientes_discapacidad_33": partner.ascendientes_discapacidad_33,
+                    "ascendientes_discapacidad_entero_33": partner.ascendientes_discapacidad_entero_33,
+                    "ascendientes_discapacidad_mr": partner.ascendientes_discapacidad_mr,
+                    "ascendientes_discapacidad_entero_mr": partner.ascendientes_discapacidad_entero_mr,
+                    "ascendientes_discapacidad_66": partner.ascendientes_discapacidad_66,
+                    "ascendientes_discapacidad_entero_66": partner.ascendientes_discapacidad_entero_66,
+                }
             )
-        }
+
+        return vals
 
 
 class L10nEsAeatMod190ReportLine(models.Model):
     _name = "l10n.es.aeat.mod190.report.line"
     _description = "Line for AEAT report Mod 190"
+
+    @api.depends(
+        "partner_vat",
+        "a_nacimiento",
+        "codigo_provincia",
+        "aeat_perception_key_id",
+        "partner_id",
+    )
+    def _compute_partner_record_ok(self):
+        """Checks if all required fields are filled in report lines."""
+        for record in self:
+            record.partner_record_ok = bool(
+                record.partner_vat
+                and record.codigo_provincia
+                and record.aeat_perception_key_id
+                and record
+            )
 
     report_id = fields.Many2one(
         comodel_name="l10n.es.aeat.mod190.report",
@@ -228,10 +314,8 @@ class L10nEsAeatMod190ReportLine(models.Model):
     partner_id = fields.Many2one(
         comodel_name="res.partner", string="Partner", required=True
     )
-    partner_vat = fields.Char(string="NIF", compute="_compute_partner_vat", store=True)
-    representante_legal_vat = fields.Char(
-        string="L. R. VAT", compute="_compute_representante_legal_vat", store=True
-    )
+    partner_vat = fields.Char(string="NIF")
+    representante_legal_vat = fields.Char(string="L. R. VAT")
     aeat_perception_key_id = fields.Many2one(
         comodel_name="l10n.es.aeat.report.perception.key",
         string="Perception key",
@@ -242,68 +326,31 @@ class L10nEsAeatMod190ReportLine(models.Model):
         string="Perception subkey",
     )
     ejercicio_devengo = fields.Char(string="year")
-    ceuta_melilla = fields.Char(
-        string="Ceuta or Melilla", related="partner_id.ceuta_melilla"
-    )
-    # Percepciones y Retenciones
-    percepciones_dinerarias = fields.Float(
-        string="Monetary perceptions",
-        compute="_compute_percepciones",
-        store=True,
-    )
-    retenciones_dinerarias = fields.Float(
-        string="Money withholdings",
-        compute="_compute_percepciones",
-        store=True,
-    )
-    percepciones_en_especie = fields.Float(
-        string="Valuation", compute="_compute_percepciones", store=True
-    )
-    ingresos_a_cuenta_efectuados = fields.Float(
-        string="Income paid on account",
-        compute="_compute_percepciones",
-        store=True,
-    )
-    ingresos_a_cuenta_repercutidos = fields.Float(
-        string="Income paid into account",
-        compute="_compute_percepciones",
-        store=True,
-    )
+    ceuta_melilla = fields.Char(string="Ceuta or Melilla")
+
+    percepciones_dinerarias = fields.Float(string="Monetary perceptions")
+    retenciones_dinerarias = fields.Float(string="Money withholdings")
+    percepciones_en_especie = fields.Float(string="Valuation")
+    ingresos_a_cuenta_efectuados = fields.Float(string="Income paid on account")
+    ingresos_a_cuenta_repercutidos = fields.Float(string="Income paid into account")
     percepciones_dinerarias_incap = fields.Float(
-        string="Monetary perceptions derived from incapacity for work",
-        compute="_compute_percepciones",
-        store=True,
+        string="Monetary perceptions derived from incapacity for work"
     )
     retenciones_dinerarias_incap = fields.Float(
-        string="Monetary withholdings derived from incapacity for work",
-        compute="_compute_percepciones",
-        store=True,
+        string="Monetary withholdings derived from incapacity for work"
     )
     percepciones_en_especie_incap = fields.Float(
-        string="Perceptions in kind arising from incapacity for work",
-        compute="_compute_percepciones",
-        store=True,
+        string="Perceptions in kind arising from incapacity for work"
     )
     ingresos_a_cuenta_efectuados_incap = fields.Float(
-        string="Income on account in kind made as a result of incapacity " "for work",
-        compute="_compute_percepciones",
-        store=True,
+        string="Income on account in kind made as a result of incapacity for work"
     )
     ingresos_a_cuenta_repercutidos_incap = fields.Float(
-        string="Income to account in kind, repercussions derived from "
-        "incapacity for work",
-        compute="_compute_percepciones",
-        store=True,
+        string="Income to account in kind, repercussions derived from incapacity for work"
     )
-    codigo_provincia = fields.Char(
-        string="State ISO code",
-        compute="_compute_codigo_provincia",
-        store=True,
-    )
-    # DATOS ADICIONALES (solo en las claves A, B.01, B.03, C, E.01 y E.02).
-    a_nacimiento = fields.Char(
-        string="Year of birth", compute="_compute_partner_id_ad_required", store=True
-    )
+    codigo_provincia = fields.Char(string="State ISO code")
+
+    a_nacimiento = fields.Char(string="Year of birth")
     situacion_familiar = fields.Selection(
         selection=[
             (
@@ -319,16 +366,10 @@ class L10nEsAeatMod190ReportLine(models.Model):
             ("3", "3 - Other."),
         ],
         string="Family situation",
-        compute="_compute_partner_id_ad_required",
-        store=True,
     )
-    nif_conyuge = fields.Char(
-        string="VAT of the spouse",
-        compute="_compute_partner_id_ad_required",
-        store=True,
-    )
+    nif_conyuge = fields.Char(string="VAT of the spouse")
     discapacidad = fields.Selection(
-        [
+        selection=[
             ("0", "0 - No disability or degree of disability less than 33 percent."),
             (
                 "1",
@@ -343,8 +384,6 @@ class L10nEsAeatMod190ReportLine(models.Model):
             ("3", "3 - Degree of disability equal to or greater than 65%."),
         ],
         string="Disability",
-        compute="_compute_partner_id_ad_required",
-        store=True,
     )
     contrato_o_relacion = fields.Selection(
         selection=[
@@ -352,220 +391,108 @@ class L10nEsAeatMod190ReportLine(models.Model):
             ("2", "2 - Contract or ratio less than a year"),
             (
                 "3",
-                "3 - Contract or special employment relationship of a dependent "
-                "nature",
+                "3 - Contract or special employment relationship of a dependent nature",
             ),
             ("4", "4 - Sporadic relationship of manual workers"),
         ],
         string="Contract or relationship",
-        compute="_compute_partner_id_ad_required",
-        store=True,
     )
     movilidad_geografica = fields.Selection(
         selection=[("0", "NO"), ("1", "SI")],
         string="Geographical mobility",
-        compute="_compute_partner_id_ad_required",
-        store=True,
     )
     reduccion_aplicable = fields.Float(string="Applicable reduction")
-    gastos_deducibles = fields.Float(
-        string="Deductible expenses",
-        compute="_compute_percepciones",
-        store=True,
-    )
+    gastos_deducibles = fields.Float(string="Deductible expenses")
     pensiones_compensatorias = fields.Float(string="Compensatory pensions")
     anualidades_por_alimentos = fields.Float(string="Annuities for food")
     prestamos_vh = fields.Selection(
         selection=[
             (
                 "0",
-                "0 - Si en ningún momento del ejercicio ha resultado de "
-                "aplicación la reducción del tipo de retención.",
+                "0 - Si en ningun momento del ejercicio ha resultado de "
+                "aplicacion la reduccion del tipo de retencion.",
             ),
             (
                 "1",
-                "1 - Si en algún momento del ejercicio ha resultado de "
-                "aplicación la reducción del tipo de retención.",
+                "1 - Si en algun momento del ejercicio ha resultado de "
+                "aplicacion la reduccion del tipo de retencion.",
             ),
         ],
-        string="Comunicación préstamos vivienda habitual",
+        string="Comunicacion prestamos vivienda habitual",
     )
-    hijos_y_descendientes_m = fields.Integer(
-        string="Under 3 years", compute="_compute_partner_id_ad_required", store=True
-    )
+
+    hijos_y_descendientes_m = fields.Integer(string="Under 3 years")
     hijos_y_descendientes_m_entero = fields.Integer(
-        string="Under 3 years, computed entirely",
-        compute="_compute_partner_id_ad_required",
-        store=True,
+        string="Under 3 years, computed entirely"
     )
-    hijos_y_descendientes = fields.Integer(
-        string="Rest", compute="_compute_partner_id_ad_required", store=True
-    )
-    hijos_y_descendientes_entero = fields.Integer(
-        string="Rest, computed entirely",
-        compute="_compute_partner_id_ad_required",
-        store=True,
-    )
+    hijos_y_descendientes = fields.Integer(string="Rest")
+    hijos_y_descendientes_entero = fields.Integer(string="Rest, computed entirely")
+
     hijos_y_desc_discapacidad_mr = fields.Integer(
-        string="Descendientes con discapacidad",
-        compute="_compute_partner_id_ad_required",
-        store=True,
+        string="Descendientes con discapacidad"
     )
     hijos_y_desc_discapacidad_entero_mr = fields.Integer(
-        string="Descendientes con discapacidad, computado de forma entera",
-        compute="_compute_partner_id_ad_required",
-        store=True,
+        string="Descendientes con discapacidad, computado de forma entera"
     )
     hijos_y_desc_discapacidad_33 = fields.Integer(
-        string="Hijos y descendientes con discapacidad del 33%",
-        compute="_compute_partner_id_ad_required",
-        store=True,
+        string="Hijos y descendientes con discapacidad del 33%"
     )
     hijos_y_desc_discapacidad_entero_33 = fields.Integer(
-        string="Hijos y descendientes con discapacidad del 33%"
-        ", computados por entero",
-        compute="_compute_partner_id_ad_required",
-        store=True,
+        string="Hijos y descendientes con discapacidad del 33%, computados por entero"
     )
     hijos_y_desc_discapacidad_66 = fields.Integer(
-        string="Hijos y descendientes con discapacidad del 66%",
-        compute="_compute_partner_id_ad_required",
-        store=True,
+        string="Hijos y descendientes con discapacidad del 66%"
     )
     hijos_y_desc_discapacidad_entero_66 = fields.Integer(
-        string="Hijos y descendientes con discapacidad del 66%"
-        ", computados por entero",
-        compute="_compute_partner_id_ad_required",
-        store=True,
+        string="Hijos y descendientes con discapacidad del 66%, computados por entero"
     )
-    ascendientes = fields.Integer(
-        string="Ascendientes menores de 75 años",
-        compute="_compute_partner_id_ad_required",
-        store=True,
-    )
+    ascendientes = fields.Integer(string="Ascendientes menores de 75 anos")
     ascendientes_entero = fields.Integer(
-        string="Ascendientes menores de 75 años, computados por entero",
-        compute="_compute_partner_id_ad_required",
-        store=True,
+        string="Ascendientes menores de 75 anos, computados por entero"
     )
-    ascendientes_m75 = fields.Integer(
-        string="Ascendientes mayores de 75 años",
-        compute="_compute_partner_id_ad_required",
-        store=True,
-    )
+    ascendientes_m75 = fields.Integer(string="Ascendientes mayores de 75 anos")
     ascendientes_entero_m75 = fields.Integer(
-        string="Ascendientes mayores de 75 años, computados por entero",
-        compute="_compute_partner_id_ad_required",
-        store=True,
+        string="Ascendientes mayores de 75 anos, computados por entero"
     )
+
     ascendientes_discapacidad_33 = fields.Integer(
-        string="Ascendientes con discapacidad",
-        compute="_compute_partner_id_ad_required",
-        store=True,
+        string="Ascendientes con discapacidad"
     )
     ascendientes_discapacidad_entero_33 = fields.Integer(
-        string="Ascendientes con discapacidad, computados por entero",
-        compute="_compute_partner_id_ad_required",
-        store=True,
+        string="Ascendientes con discapacidad, computados por entero"
     )
     ascendientes_discapacidad_mr = fields.Integer(
-        string="Ascendientes con discapacidad de más del 33%",
-        compute="_compute_partner_id_ad_required",
-        store=True,
+        string="Ascendientes con discapacidad de mas del 33%"
     )
     ascendientes_discapacidad_entero_mr = fields.Integer(
-        string="Ascendientes con discapacidad de más del 33%" ", computados por entero",
-        compute="_compute_partner_id_ad_required",
-        store=True,
+        string="Ascendientes con discapacidad de mas del 33%, computados por entero"
     )
     ascendientes_discapacidad_66 = fields.Integer(
-        string="Ascendientes con discapacidad de más del 66%",
-        compute="_compute_partner_id_ad_required",
-        store=True,
+        string="Ascendientes con discapacidad de mas del 66%"
     )
     ascendientes_discapacidad_entero_66 = fields.Integer(
-        string="Ascendientes con discapacidad de más del 66%" ", computados por entero",
-        compute="_compute_partner_id_ad_required",
-        store=True,
+        string="Ascendientes con discapacidad de mas del 66%, computados por entero"
     )
-    computo_primeros_hijos_1 = fields.Integer(
-        string="1", compute="_compute_partner_id_ad_required", store=True
-    )
-    computo_primeros_hijos_2 = fields.Integer(
-        string="2", compute="_compute_partner_id_ad_required", store=True
-    )
-    computo_primeros_hijos_3 = fields.Integer(
-        string="3", compute="_compute_partner_id_ad_required", store=True
-    )
-    ad_required = fields.Integer(compute="_compute_ad_required", store=True)
+    computo_primeros_hijos_1 = fields.Integer(string="1")
+    computo_primeros_hijos_2 = fields.Integer(string="2")
+    computo_primeros_hijos_3 = fields.Integer(string="3")
+
+    ad_required = fields.Integer(compute="_compute_ad_required")
+
+    # Keep 18.0 extra fields to avoid breaking 2025 export definitions.
     rendimientos_obtenidos_fondos = fields.Boolean(
-        string="Rendimientos del trabajo obtenidos por la gestión de fondos vinculados "
-        "al emprendimiento, a la innovación y al desarrollo de la actividad económica",
-        help="Solo marcar si la cuantía total de la percepción dineraria o la cuantía "
-        "total de la valoración de la percepción en especie incluye, aunque sea de "
-        "forma parcial, rendimientos del trabajo derivados directa o indirectamente de "
-        "participaciones, acciones u otros derechos, incluidas comisiones de éxito, "
-        "que otorguen derechos económicos especiales a los que se haya aplicado lo "
-        "dispuesto en el apartado 3 de la Disposición adicional quincuagésima tercera "
-        "a las que se refiere la Ley 35/2006, de 28 de noviembre",
+        string="Rendimientos del trabajo obtenidos por la gestion de fondos"
     )
-    clave_b01_jubilacion = fields.Boolean(
-        string="Prestación de jubilación",
-        help="Prestación de jubilación percibida en el ejercicio",
-    )
-    clave_b01_viudedad = fields.Boolean(
-        string="Prestación de viudedad",
-        help="Prestación de viudedad percibida en el ejercicio",
-    )
+    clave_b01_jubilacion = fields.Boolean(string="Prestacion de jubilacion")
+    clave_b01_viudedad = fields.Boolean(string="Prestacion de viudedad")
     clave_b01_incapacidad = fields.Boolean(
-        string="Prestación de incapacidad permanente total o parcial",
-        help="Prestación de incapacidad permanente total o parcial percibida en el "
-        "ejercicio",
+        string="Prestacion de incapacidad permanente total o parcial"
     )
     clave_b01_pensiones_no_contributivas = fields.Boolean(
-        string="Prestación de pensiones no contributivas por invalidez o jubilación",
-        help="Prestación de pensiones no contributivas por invalidez o jubilación "
-        "percibida en el ejercicio",
+        string="Prestacion de pensiones no contributivas por invalidez o jubilacion"
     )
-    clave_b01_resto = fields.Boolean(
-        string="Prestacion no incluida en el resto",
-        help="Prestación no incluida en el resto en el ejercicio",
-    )
+    clave_b01_resto = fields.Boolean(string="Prestacion no incluida en el resto")
     visible_key_b01 = fields.Boolean(compute="_compute_visible_key_b01")
-
-    @api.depends(
-        "partner_vat",
-        "a_nacimiento",
-        "codigo_provincia",
-        "aeat_perception_key_id",
-        "partner_id",
-    )
-    def _compute_partner_record_ok(self):
-        """Comprobamos que los campos estén introducidos dependiendo de las
-        claves y las subclaves."""
-        for record in self:
-            record.partner_record_ok = bool(
-                record.partner_vat
-                and record.codigo_provincia
-                and record.aeat_perception_key_id
-                and record
-            )
-
-    @api.depends("partner_id")
-    def _compute_partner_vat(self):
-        for item in self.filtered(lambda x: x.partner_id):
-            item.partner_vat = item.partner_id._parse_aeat_vat_info()[2]
-
-    @api.depends("partner_id")
-    def _compute_representante_legal_vat(self):
-        for item in self.filtered(lambda x: x.partner_id):
-            item.representante_legal_vat = item.partner_id.representante_legal_vat
-
-    @api.depends("partner_id")
-    def _compute_codigo_provincia(self):
-        for item in self:
-            code = SPANISH_STATES.get(item.partner_id.state_id.code)
-            item.codigo_provincia = code if code else "98"
 
     @api.depends("aeat_perception_key_id", "aeat_perception_subkey_id")
     def _compute_ad_required(self):
@@ -575,176 +502,83 @@ class L10nEsAeatMod190ReportLine(models.Model):
                 ad_required += record.aeat_perception_subkey_id.ad_required
             record.ad_required = ad_required
 
-    @api.depends("partner_id", "ad_required")
-    def _compute_partner_id_ad_required(self):
-        """Utilizamos el mismo compute para reducir código al tener la misma lógica."""
-        for item in self.filtered(lambda x: x.ad_required >= 2):
-            partner = item.partner_id
-            item.a_nacimiento = partner.a_nacimiento
-            item.discapacidad = partner.discapacidad
-            item.movilidad_geografica = partner.movilidad_geografica
-            item.representante_legal_vat = partner.representante_legal_vat
-            item.situacion_familiar = partner.situacion_familiar
-            item.nif_conyuge = partner.nif_conyuge
-            item.contrato_o_relacion = partner.contrato_o_relacion
-            item.hijos_y_descendientes_m = partner.hijos_y_descendientes_m
-            item.hijos_y_descendientes_m_entero = partner.hijos_y_descendientes_m_entero
-            item.hijos_y_descendientes = partner.hijos_y_descendientes
-            item.hijos_y_descendientes_entero = partner.hijos_y_descendientes_entero
-            item.computo_primeros_hijos_1 = partner.computo_primeros_hijos_1
-            item.computo_primeros_hijos_2 = partner.computo_primeros_hijos_2
-            item.computo_primeros_hijos_3 = partner.computo_primeros_hijos_3
-            item.hijos_y_desc_discapacidad_33 = partner.hijos_y_desc_discapacidad_33
-            item.hijos_y_desc_discapacidad_entero_33 = (
-                partner.hijos_y_desc_discapacidad_entero_33
-            )
-            item.hijos_y_desc_discapacidad_mr = partner.hijos_y_desc_discapacidad_mr
-            item.hijos_y_desc_discapacidad_entero_mr = (
-                partner.hijos_y_desc_discapacidad_entero_mr
-            )
-            item.hijos_y_desc_discapacidad_66 = partner.hijos_y_desc_discapacidad_66
-            item.hijos_y_desc_discapacidad_entero_66 = (
-                partner.hijos_y_desc_discapacidad_entero_66
-            )
-            item.ascendientes = partner.ascendientes
-            item.ascendientes_entero = partner.ascendientes_entero
-            item.ascendientes_m75 = partner.ascendientes_m75
-            item.ascendientes_entero_m75 = partner.ascendientes_entero_m75
-            item.ascendientes_discapacidad_33 = partner.ascendientes_discapacidad_33
-            item.ascendientes_discapacidad_entero_33 = (
-                partner.ascendientes_discapacidad_entero_33
-            )
-            item.ascendientes_discapacidad_mr = partner.ascendientes_discapacidad_mr
-            item.ascendientes_discapacidad_entero_mr = (
-                partner.ascendientes_discapacidad_entero_mr
-            )
-            item.ascendientes_discapacidad_66 = partner.ascendientes_discapacidad_66
-            item.ascendientes_discapacidad_entero_66 = (
-                partner.ascendientes_discapacidad_entero_66
-            )
-
-    # Calculo campos SIN incapacidad
-    @api.depends("report_id", "report_id.tax_line_ids", "discapacidad")
-    def _compute_percepciones(self):
-        tax_data = {}
-        domain = []
-        if len(self.partner_id) == 1:
-            # This should only happen when we are making a small update on
-            # 'discapacidad'
-            domain.append(("partner_id", "=", self.partner_id.id))
-        for report in self.report_id:
-            tax_data[report.id] = {
-                "11": report._get_grouped_data(11, domain),
-                "12": report._get_grouped_data(12, domain),
-                "13": report._get_grouped_data(13, domain),
-                "14": report._get_grouped_data(14, domain),
-                "15": report._get_grouped_data(15, domain),
-                "16": report._get_grouped_data(16, domain),
-                "17": report._get_grouped_data(17, domain),
-                "18": report._get_grouped_data(18, domain),
-                "19": report._get_grouped_data(19, domain),
-            }
-        for item in self:
-            keys = [
-                (
-                    item.partner_id.id,
-                    item.aeat_perception_key_id.id,
-                    item.aeat_perception_subkey_id.id,
-                )
-            ]
-            if (
-                item.partner_id.aeat_perception_key_id == item.aeat_perception_key_id
-                and item.aeat_perception_subkey_id
-                == item.partner_id.aeat_perception_subkey_id
-            ):
-                keys.append((item.partner_id.id, False, False))
-            incapacidad = item.discapacidad and item.discapacidad != "0"
-            percepciones_dinerarias = -sum(
-                tax_data[item.report_id.id]["11"].get(key, 0) for key in keys
-            ) - sum(tax_data[item.report_id.id]["15"].get(key, 0) for key in keys)
-            retenciones_dinerarias = sum(
-                tax_data[item.report_id.id]["12"].get(key, 0) for key in keys
-            ) + sum(tax_data[item.report_id.id]["16"].get(key, 0) for key in keys)
-            percepciones_en_especie = -sum(
-                tax_data[item.report_id.id]["13"].get(key, 0) for key in keys
-            )
-            ingresos_a_cuenta_efectuados = sum(
-                tax_data[item.report_id.id]["14"].get(key, 0) for key in keys
-            )
-            percepciones_dinerarias_incap = (
-                incapacidad and percepciones_dinerarias
-            ) - sum(tax_data[item.report_id.id]["18"].get(key, 0) for key in keys)
-            retenciones_dinerarias_incap = (
-                incapacidad and retenciones_dinerarias
-            ) + sum(tax_data[item.report_id.id]["19"].get(key, 0) for key in keys)
-
-            item.percepciones_dinerarias = not incapacidad and percepciones_dinerarias
-            item.percepciones_dinerarias_incap = percepciones_dinerarias_incap
-            item.retenciones_dinerarias = not incapacidad and retenciones_dinerarias
-            item.retenciones_dinerarias_incap = retenciones_dinerarias_incap
-            item.percepciones_en_especie = not incapacidad and percepciones_en_especie
-            item.percepciones_en_especie_incap = incapacidad and percepciones_en_especie
-            item.ingresos_a_cuenta_efectuados = (
-                not incapacidad and ingresos_a_cuenta_efectuados
-            )
-            item.ingresos_a_cuenta_efectuados_incap = (
-                incapacidad and ingresos_a_cuenta_efectuados
-            )
-            item.ingresos_a_cuenta_repercutidos = (
-                not incapacidad and ingresos_a_cuenta_efectuados
-            )
-            item.ingresos_a_cuenta_repercutidos_incap = (
-                incapacidad and ingresos_a_cuenta_efectuados
-            )
-            item.gastos_deducibles = sum(
-                tax_data[item.report_id.id]["17"].get(key, 0) for key in keys
-            )
-
     @api.depends("aeat_perception_key_id", "aeat_perception_subkey_id")
     def _compute_visible_key_b01(self):
+        key_b = self.env.ref("l10n_es_aeat_mod190.aeat_m190_perception_key_02")
+        subkey_b01 = self.env.ref(
+            "l10n_es_aeat_mod190.aeat_m190_perception_subkey_02_01"
+        )
         for record in self:
-            record.visible_key_b01 = record.aeat_perception_key_id == self.env.ref(
-                "l10n_es_aeat_mod190.aeat_m190_perception_key_02"
-            ) and record.aeat_perception_subkey_id == self.env.ref(
-                "l10n_es_aeat_mod190.aeat_m190_perception_subkey_02_01"
+            record.visible_key_b01 = (
+                record.aeat_perception_key_id == key_b
+                and record.aeat_perception_subkey_id == subkey_b01
             )
 
     @api.onchange("partner_id")
     def onchange_partner_id(self):
         if self.partner_id:
-            if not self.partner_id.state_id:
+            partner = self.partner_id
+            if not partner.state_id:
                 raise exceptions.UserError(_("Provincia no definida en el cliente"))
-            # Cargamos valores establecidos en el tercero.
-            self.aeat_perception_key_id = self.partner_id.aeat_perception_key_id
-            self.aeat_perception_subkey_id = self.partner_id.aeat_perception_subkey_id
+
+            self.codigo_provincia = SPANISH_STATES.get(partner.state_id.code)
+            if not self.codigo_provincia:
+                self.codigo_provincia = "98"
+
+            self.partner_vat = partner.vat
+            self.aeat_perception_key_id = partner.aeat_perception_key_id
+            self.aeat_perception_subkey_id = partner.aeat_perception_subkey_id
+            self.a_nacimiento = partner.a_nacimiento
+            self.discapacidad = partner.discapacidad
+            self.ceuta_melilla = partner.ceuta_melilla
+            self.movilidad_geografica = partner.movilidad_geografica
+            self.representante_legal_vat = partner.representante_legal_vat
+            self.situacion_familiar = partner.situacion_familiar
+            self.nif_conyuge = partner.nif_conyuge
+            self.contrato_o_relacion = partner.contrato_o_relacion
+            self.hijos_y_descendientes_m = partner.hijos_y_descendientes_m
+            self.hijos_y_descendientes_m_entero = partner.hijos_y_descendientes_m_entero
+            self.hijos_y_descendientes = partner.hijos_y_descendientes
+            self.hijos_y_descendientes_entero = partner.hijos_y_descendientes_entero
+            self.computo_primeros_hijos_1 = partner.computo_primeros_hijos_1
+            self.computo_primeros_hijos_2 = partner.computo_primeros_hijos_2
+            self.computo_primeros_hijos_3 = partner.computo_primeros_hijos_3
+            self.hijos_y_desc_discapacidad_33 = partner.hijos_y_desc_discapacidad_33
+            self.hijos_y_desc_discapacidad_entero_33 = (
+                partner.hijos_y_desc_discapacidad_entero_33
+            )
+            self.hijos_y_desc_discapacidad_mr = partner.hijos_y_desc_discapacidad_mr
+            self.hijos_y_desc_discapacidad_entero_mr = (
+                partner.hijos_y_desc_discapacidad_entero_mr
+            )
+            self.hijos_y_desc_discapacidad_66 = partner.hijos_y_desc_discapacidad_66
+            self.hijos_y_desc_discapacidad_entero_66 = (
+                partner.hijos_y_desc_discapacidad_entero_66
+            )
+            self.ascendientes = partner.ascendientes
+            self.ascendientes_entero = partner.ascendientes_entero
+            self.ascendientes_m75 = partner.ascendientes_m75
+            self.ascendientes_entero_m75 = partner.ascendientes_entero_m75
+            self.ascendientes_discapacidad_33 = partner.ascendientes_discapacidad_33
+            self.ascendientes_discapacidad_entero_33 = (
+                partner.ascendientes_discapacidad_entero_33
+            )
+            self.ascendientes_discapacidad_mr = partner.ascendientes_discapacidad_mr
+            self.ascendientes_discapacidad_entero_mr = (
+                partner.ascendientes_discapacidad_entero_mr
+            )
+            self.ascendientes_discapacidad_66 = partner.ascendientes_discapacidad_66
+            self.ascendientes_discapacidad_entero_66 = (
+                partner.ascendientes_discapacidad_entero_66
+            )
+
             if self.aeat_perception_key_id:
                 self.aeat_perception_subkey_id = False
+        else:
+            self.partner_vat = False
+            self.codigo_provincia = False
 
     @api.onchange("aeat_perception_key_id")
     def onchange_aeat_perception_key_id(self):
         if self.aeat_perception_key_id:
             self.aeat_perception_subkey_id = False
-
-    def _check_b01(self):
-        fields_clave_b01 = {
-            "clave_b01_jubilacion",
-            "clave_b01_viudedad",
-            "clave_b01_incapacidad",
-            "clave_b01_pensiones_no_contributivas",
-            "clave_b01_resto",
-        }
-        for record in self:
-            if (
-                record.aeat_perception_key_id
-                == self.env.ref("l10n_es_aeat_mod190.aeat_m190_perception_key_02")
-                and record.aeat_perception_subkey_id
-                == self.env.ref("l10n_es_aeat_mod190.aeat_m190_perception_subkey_02_01")
-                and not any([record[field] for field in fields_clave_b01])
-            ):
-                raise exceptions.ValidationError(
-                    self.env._(
-                        "The perceptor %s has key B.01, you must check any type of "
-                        "benefit for key B.01",
-                        record.partner_id.name,
-                    )
-                )

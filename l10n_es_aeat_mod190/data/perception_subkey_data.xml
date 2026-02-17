@@ -1,9 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version='1.0' encoding='utf-8'?>
 <odoo>
-    <record
-        id="aeat_m190_perception_subkey_02_01"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_02_01" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_02" />
         <field name="name">01</field>
         <field name="aeat_number">190</field>
@@ -23,13 +20,9 @@
             (en virtud del respectivo acuerdo de colaboración con la
             Seguridad Social), se reflejarán en la clave A.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">1</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_02_02"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_02_02" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_02" />
         <field name="name">02</field>
         <field name="aeat_number">190</field>
@@ -39,13 +32,9 @@
             haya determinado con arreglo al procedimiento especial
             previsto en el artículo 89.A del Reglamento del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_02_03"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_02_03" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_02" />
         <field name="name">03</field>
         <field name="aeat_number">190</field>
@@ -54,13 +43,9 @@
             de la clave B distintas de las que deban relacionarse bajo
             las subclaves 01 y 02.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">1</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_03_01"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_03_01" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_03" />
         <field name="name">01</field>
         <field name="aeat_number">190</field>
@@ -71,13 +56,10 @@
             distintas de las específicamente señaladas en las
             subclaves siguientes.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_03_02"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_03_02" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_03" />
         <field name="name">02</field>
         <field name="aeat_number">190</field>
@@ -88,13 +70,10 @@
             reguladora de los expedientes de regulación de
             empleo (ERE).
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_03_03"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_03_03" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_03" />
         <field name="name">03</field>
         <field name="aeat_number">190</field>
@@ -104,13 +83,10 @@
             desempleo satisfechas vinculadas a un expediente
             de regulación temporal de empleo (ERTE).
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_03_04"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_03_04" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_03" />
         <field name="name">04</field>
         <field name="aeat_number">190</field>
@@ -121,13 +97,10 @@
             (de carácter extraordinario o no) satisfechas a
             trabajadores autónomos.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_03_05"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_03_05" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_03" />
         <field name="name">05</field>
         <field name="aeat_number">190</field>
@@ -143,13 +116,10 @@
             inserción, que se reflejará en la subclave 06
             siguiente.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_03_06"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_03_06" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_03" />
         <field name="name">06</field>
         <field name="aeat_number">190</field>
@@ -159,13 +129,10 @@
             acciones en materia de políticas activas de empleo
             que no conlleven retribuciones salariales.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_03_07"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_03_07" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_03" />
         <field name="name">07</field>
         <field name="aeat_number">190</field>
@@ -175,13 +142,10 @@
             subsidios o ayudas satisfechas que no deban
             reflejarse en las subclaves anteriores
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_05_01"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_05_01" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_05" />
         <field name="name">01</field>
         <field name="aeat_number">190</field>
@@ -192,13 +156,9 @@
             a trabajadores por cuenta ajena, y los rendimientos percibidos
             no deban reflejarse en la subclave 02.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">1</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_05_02"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_05_02" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_05" />
         <field name="name">02</field>
         <field name="aeat_number">190</field>
@@ -212,13 +172,9 @@
             con anterioridad al pago de los rendimientos sea inferior a
             100.000 euros.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">1</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_05_03"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_05_03" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_05" />
         <field name="name">03</field>
         <field name="aeat_number">190</field>
@@ -231,13 +187,9 @@
             período impositivo finalizado con anterioridad al pago de
             los rendimientos sea inferior a 100.000 euros.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_05_04"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_05_04" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_05" />
         <field name="name">04</field>
         <field name="aeat_number">190</field>
@@ -246,13 +198,9 @@
             de la clave E distintas de las que deban relacionarse bajo
             las subclaves 01, 02 y 03.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_06_01"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_06_01" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_06" />
         <field name="name">01</field>
         <field name="aeat_number">190</field>
@@ -262,13 +210,9 @@
             artísticos no exentos del Impuesto a que se refiere el
             artículo 12.1, letra g), del Reglamento del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_06_02"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_06_02" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_06" />
         <field name="name">02</field>
         <field name="aeat_number">190</field>
@@ -276,13 +220,9 @@
             Rendimientos del trabajo derivados de impartir
             cursos, conferencias, coloquios y similares.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_06_03"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_06_03" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_06" />
         <field name="name">03</field>
         <field name="aeat_number">190</field>
@@ -293,13 +233,10 @@
             retención establecido con carácter general en el
             artículo 101.3 de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_06_04"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_06_04" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_06" />
         <field name="name">04</field>
         <field name="aeat_number">190</field>
@@ -310,13 +247,10 @@
             retención reducido establecido en el artículo 101.3
             de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_06_05"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_06_05" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_06" />
         <field name="name">05</field>
         <field name="aeat_number">190</field>
@@ -327,13 +261,10 @@
             tipo general establecido en el artículo 101.9 de la
             ley del Impuesto.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_06_06"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_06_06" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_06" />
         <field name="name">06</field>
         <field name="aeat_number">190</field>
@@ -344,13 +275,10 @@
             tipo de retención reducido establecido en el
             artículo 101.9 de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_06_07"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_06_07" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_06" />
         <field name="name">07</field>
         <field name="aeat_number">190</field>
@@ -361,13 +289,10 @@
             del trabajo, que se vayan a devengar a lo largo de
             varios años.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_07_01"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_07_01" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_07" />
         <field name="name">01</field>
         <field name="aeat_number">190</field>
@@ -377,13 +302,9 @@
             retención establecido con carácter general en el artículo
             95.1 del Reglamento del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_07_02"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_07_02" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_07" />
         <field name="name">02</field>
         <field name="aeat_number">190</field>
@@ -397,13 +318,9 @@
             delegados comerciales de la entidad pública empresarial
             «Loterías y Apuestas del Estado».
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_07_03"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_07_03" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_07" />
         <field name="name">03</field>
         <field name="aeat_number">190</field>
@@ -416,13 +333,9 @@
             actividades profesionales, tanto en el período impositivo en
             que se produzca dicho inicio como en los dos siguientes.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_07_04"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_07_04" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_07" />
         <field name="name">04</field>
         <field name="aeat_number">190</field>
@@ -432,13 +345,10 @@
             retención especifico establecido en la letra d) del
             artículo 95.1 del Reglamento del Impuesto.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_07_05"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_07_05" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_07" />
         <field name="name">05</field>
         <field name="aeat_number">190</field>
@@ -448,13 +358,10 @@
             general de retención previsto en el artículo 101.9
             de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_07_06"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_07_06" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_07" />
         <field name="name">06</field>
         <field name="aeat_number">190</field>
@@ -464,13 +371,10 @@
             retención reducido previsto en el artículo 101.9 de
             la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_07_07"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_07_07" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_07" />
         <field name="name">07</field>
         <field name="aeat_number">190</field>
@@ -481,13 +385,10 @@
             de actividades profesionales, que se vayan a
             devengar a lo largo de varios años.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_07_08"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_07_08" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_07" />
         <field name="name">08</field>
         <field name="aeat_number">190</field>
@@ -499,13 +400,10 @@
             perceptor la calificación de rendimientos derivados
             de su actividad profesional.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_08_01"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_08_01" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_08" />
         <field name="name">01</field>
         <field name="aeat_number">190</field>
@@ -515,13 +413,9 @@
             retención establecido con carácter general en el artículo
             95.4.2.o del Reglamento del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_08_02"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_08_02" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_08" />
         <field name="name">02</field>
         <field name="aeat_number">190</field>
@@ -534,13 +428,9 @@
             actividades ganaderas de engorde de porcino y
             avicultura.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_08_03"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_08_03" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_08" />
         <field name="name">03</field>
         <field name="aeat_number">190</field>
@@ -550,13 +440,9 @@
             forestales a que se refiere el artículo 95.5 del Reglamento
             del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_08_04"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_08_04" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_08" />
         <field name="name">04</field>
         <field name="aeat_number">190</field>
@@ -566,13 +452,9 @@
             económicas en estimación objetiva recogidas en el artículo
             95.6.2.o del Reglamento del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_09_01"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_09_01" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_09" />
         <field name="name">01</field>
         <field name="aeat_number">190</field>
@@ -583,13 +465,9 @@
             cesión del derecho a la explotación del derecho de
             imagen.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_09_02"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_09_02" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_09" />
         <field name="name">02</field>
         <field name="aeat_number">190</field>
@@ -600,13 +478,9 @@
             refiere el artículo 75.2, letra b) del Reglamento del
             Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_11_01"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_11_01" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_11" />
         <field name="name">01</field>
         <field name="aeat_number">190</field>
@@ -625,13 +499,9 @@
             en el mismo período impositivo, en los términos
             establecidos en el artículo 35.5.d) de la Ley del impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_11_02"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_11_02" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_11" />
         <field name="name">02</field>
         <field name="aeat_number">190</field>
@@ -641,13 +511,9 @@
             vecinos como consecuencia de aprovechamientos
             forestales en montes públicos.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_11_03"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_11_03" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_11" />
         <field name="name">03</field>
         <field name="aeat_number">190</field>
@@ -664,13 +530,9 @@
             de combinaciones aleatorias con fines publicitarios y
             promocionales definidas en el art. 3.i) de la Ley 13/2011.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_01"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_01" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">01</field>
         <field name="aeat_number">190</field>
@@ -679,13 +541,9 @@
             exceptuadas de gravamen conforme a lo previsto en el
             artículo 9 del Reglamento del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_02"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_02" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">02</field>
         <field name="aeat_number">190</field>
@@ -696,13 +554,9 @@
             estén exentas en virtud de lo establecido en la letra a) del
             artículo 7 de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_03"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_03" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">03</field>
         <field name="aeat_number">190</field>
@@ -711,13 +565,9 @@
             inmunodeficiencia humana a que se refiere la letra b) del
             artículo 7 de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_04"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_04" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">04</field>
         <field name="aeat_number">190</field>
@@ -727,13 +577,9 @@
             1936/1939 que estén exentas en virtud de lo establecido
             en la letra c) del artículo 7 de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_05"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_05" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">05</field>
         <field name="aeat_number">190</field>
@@ -743,13 +589,9 @@
             artículo 7 de la Ley del Impuesto y en el artículo 1 del
             Reglamento.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_06"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_06" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">06</field>
         <field name="aeat_number">190</field>
@@ -759,13 +601,9 @@
             establecido en la letra f) del artículo 7 de la Ley del
             Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_07"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_07" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">07</field>
         <field name="aeat_number">190</field>
@@ -774,13 +612,9 @@
             régimen de clases pasivas a que se refiere la letra g) del
             artículo 7 de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_08"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_08" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">08</field>
         <field name="aeat_number">190</field>
@@ -789,13 +623,9 @@
             exentos en virtud de lo establecido en la letra h) del
             artículo 7 de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_09"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_09" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">09</field>
         <field name="aeat_number">190</field>
@@ -809,13 +639,9 @@
             de día, que estén exentas en virtud de lo establecido en la
             letra i) del artículo 7 de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_10"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_10" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">10</field>
         <field name="aeat_number">190</field>
@@ -823,13 +649,9 @@
             Becas que estén exentas en virtud de lo establecido en
             la letra j) del artículo 7 de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_11"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_11" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">11</field>
         <field name="aeat_number">190</field>
@@ -839,13 +661,9 @@
             exentos en virtud de lo establecido en la letra l) del artículo
             7 de la Ley del Impuesto y en el artículo 3 del Reglamento.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_12"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_12" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">12</field>
         <field name="aeat_number">190</field>
@@ -855,13 +673,9 @@
             artículo 7 de la Ley del Impuesto y en el artículo 4 del
             Reglamento.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_13"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_13" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">13</field>
         <field name="aeat_number">190</field>
@@ -871,13 +685,9 @@
             establecido en la letra n) del artículo 7 de la Ley del
             Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_14"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_14" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">14</field>
         <field name="aeat_number">190</field>
@@ -888,13 +698,9 @@
             en virtud de lo establecido en la letra o) del artículo 7 de la
             Ley del Impuesto y en el artículo 5 del Reglamento.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_15"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_15" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">15</field>
         <field name="aeat_number">190</field>
@@ -904,13 +710,9 @@
             lo establecido en la letra p) del artículo 7 de la Ley del
             Impuesto y en el artículo 6 del Reglamento.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_16"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_16" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">16</field>
         <field name="aeat_number">190</field>
@@ -919,13 +721,9 @@
             virtud de lo establecido en la letra r) del artículo 7 de la
             Ley del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_17"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_17" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">17</field>
         <field name="aeat_number">190</field>
@@ -936,13 +734,9 @@
             estén exentas en virtud de lo establecido en la letra s) del
             artículo 7 de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_18"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_18" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">18</field>
         <field name="aeat_number">190</field>
@@ -953,13 +747,9 @@
             que estén exentas en virtud de lo establecido en la letra w)
             del artículo 7 de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_19"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_19" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">19</field>
         <field name="aeat_number">190</field>
@@ -972,13 +762,9 @@
             en virtud de lo establecido en la letra x) del artículo 7 de la
             Ley del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_20"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_20" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">20</field>
         <field name="aeat_number">190</field>
@@ -988,13 +774,9 @@
             menores, que estén exentas en virtud de lo establecido en
             la letra z) del artículo 7 de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_21"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_21" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">21</field>
         <field name="aeat_number">190</field>
@@ -1006,13 +788,9 @@
             estén exentos en virtud de lo establecido en el segundo
             párrafo de la letra w) del artículo 7 de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_22"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_22" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">22</field>
         <field name="aeat_number">190</field>
@@ -1030,13 +808,9 @@
             suficientes, que estén exentas en virtud de lo establecido en el
             primer párrafo de la letra y) del artículo 7 de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_23"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_23" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">23</field>
         <field name="aeat_number">190</field>
@@ -1052,13 +826,9 @@
             establecido en el segundo párrafo de la letra y) del artículo
             7 de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_24"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_24" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">24</field>
         <field name="aeat_number">190</field>
@@ -1076,13 +846,9 @@
             exigirán datos cuando para la prestación de los
             servicios se utilicen fórmulas indirectas.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_25"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_25" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">25</field>
         <field name="aeat_number">190</field>
@@ -1099,13 +865,9 @@
             cuando para la prestación de los servicios se
             utilicen fórmulas indirectas.
         </field>
-        <field name="active">True</field>
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_26"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_26" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">26</field>
         <field name="aeat_number">190</field>
@@ -1114,13 +876,10 @@
             acuerdo con lo dispuesto en la letra d) del artículo
             42.3 de la Ley del Impuesto.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_27"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_27" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">27</field>
         <field name="aeat_number">190</field>
@@ -1128,13 +887,10 @@
             Prestaciones públicas por maternidad o
             paternidad exentas del IRPF.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_28"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_28" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">28</field>
         <field name="aeat_number">190</field>
@@ -1151,13 +907,10 @@
             que deban consignarse en la subclave 22
             anterior
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_29"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_29" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">29</field>
         <field name="aeat_number">190</field>
@@ -1165,13 +918,10 @@
             Prestación económica de la Seguridad Social
             correspondiente al Ingreso Mínimo Vital.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_30"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_30" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">30</field>
         <field name="aeat_number">190</field>
@@ -1185,13 +935,10 @@
             empresas del grupo de sociedades, que no deban
             incluirse en la subclave 31 siguiente
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_31"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_31" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">31</field>
         <field name="aeat_number">190</field>
@@ -1204,13 +951,10 @@
             28/2022, de 21 de diciembre, de fomento del
             ecosistema de las empresas emergentes.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
-    <record
-        id="aeat_m190_perception_subkey_12_99"
-        model="l10n.es.aeat.report.perception.subkey"
-    >
+    <record id="aeat_m190_perception_subkey_12_99" model="l10n.es.aeat.report.perception.subkey">
         <field name="aeat_perception_key_id" ref="aeat_m190_perception_key_12" />
         <field name="name">99</field>
         <field name="aeat_number">190</field>
@@ -1222,7 +966,7 @@
             las específicamente señaladas en las subclaves
             anteriores.
         </field>
-        <field name="active">True</field>
+        <field name="active" eval="False" />
         <field name="ad_required">0</field>
     </record>
 </odoo>

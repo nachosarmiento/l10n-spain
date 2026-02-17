@@ -37,24 +37,6 @@ class AccountMoveLine(models.Model):
         compute="_compute_aeat_perception_keys",
         store=True,
     )
-    is_aeat_perception_subkey_visible = fields.Boolean(
-        compute="_compute_is_aeat_perception_subkey_visible"
-    )
-
-    @api.depends("aeat_perception_key_id")
-    def _compute_is_aeat_perception_subkey_visible(self):
-        for record in self:
-            record.is_aeat_perception_subkey_visible = bool(
-                record.env["l10n.es.aeat.report.perception.subkey"].search(
-                    [
-                        (
-                            "aeat_perception_key_id",
-                            "=",
-                            record.aeat_perception_key_id.id,
-                        ),
-                    ]
-                )
-            )
 
     @api.depends("move_id.aeat_perception_key_id", "move_id.aeat_perception_subkey_id")
     def _compute_aeat_perception_keys(self):
@@ -63,8 +45,7 @@ class AccountMoveLine(models.Model):
             aeat_perception_subkey_id = False
             if (
                 line.move_id.is_invoice(include_receipts=True)
-                and not line.exclude_from_invoice_tab
-                and line.id in line.move_id.invoice_line_ids.ids
+                and line in line.move_id.invoice_line_ids
                 and line.move_id.aeat_perception_key_id
             ):
                 aeat_perception_key_id = line.move_id.aeat_perception_key_id.id

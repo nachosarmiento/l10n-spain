@@ -13,8 +13,6 @@ class AccountMove(models.Model):
         string="Clave percepción",
         help="Se consignará la clave alfabética que corresponda a las "
         "percepciones de que se trate.",
-        store=True,
-        compute="_compute_aeat_perception_key_id",
     )
     aeat_perception_subkey_id = fields.Many2one(
         comodel_name="l10n.es.aeat.report.perception.subkey",
@@ -35,61 +33,38 @@ class AccountMove(models.Model):
                 cada uno de ellos refleje exclusivamente los datos de
                 percepciones correspondientes a una misma clave y, en
                 su caso, subclave.""",
-        store=True,
-        compute="_compute_aeat_perception_subkey_id",
-        domain="[('aeat_perception_key_id', '=', aeat_perception_key_id)]",
-    )
-    is_aeat_perception_subkey_visible = fields.Boolean(
-        compute="_compute_is_aeat_perception_subkey_visible"
     )
 
-    @api.depends("fiscal_position_id")
-    def _compute_aeat_perception_key_id(self):
-        for item in self.filtered(lambda x: x.fiscal_position_id):
-            item.aeat_perception_key_id = item.fiscal_position_id.aeat_perception_key_id
-
-    @api.depends("fiscal_position_id")
-    def _compute_aeat_perception_subkey_id(self):
-        for item in self.filtered(lambda x: x.fiscal_position_id):
-            item.aeat_perception_subkey_id = (
-                item.fiscal_position_id.aeat_perception_subkey_id
-            )
-
-    @api.depends("aeat_perception_key_id")
-    def _compute_is_aeat_perception_subkey_visible(self):
-        for record in self:
-            record.is_aeat_perception_subkey_visible = bool(
-                record.env["l10n.es.aeat.report.perception.subkey"].search(
-                    [
-                        (
-                            "aeat_perception_key_id",
-                            "=",
-                            record.aeat_perception_key_id.id,
-                        ),
-                    ]
-                )
-            )
-
-    def _assign_mod190_fiscal_position(self):
+    def add_keys(self, set_fiscal_position=True):
         fiscal_position_model = self.env["account.fiscal.position"]
-        for move in self.filtered(
-            lambda x: x.is_invoice(include_receipts=True)
-            and x.partner_id
-            and not x.fiscal_position_id
-        ):
-            delivery_partner = move.partner_shipping_id or move.partner_id
-            move.fiscal_position_id = fiscal_position_model.with_company(
-                move.company_id
-            )._get_fiscal_position(move.partner_id, delivery=delivery_partner)
+        for move in self:
+            if not move.is_invoice(include_receipts=True):
+                continue
+            if set_fiscal_position:
+                delivery_partner = move.partner_shipping_id or move.partner_id
+                move.fiscal_position_id = fiscal_position_model.with_company(
+                    move.company_id.id
+                )._get_fiscal_position(move.partner_id, delivery=delivery_partner)
+            if move.fiscal_position_id.aeat_perception_key_id:
+                fp = move.fiscal_position_id
+                move.aeat_perception_key_id = fp.aeat_perception_key_id
+                move.aeat_perception_subkey_id = fp.aeat_perception_subkey_id
 
     @api.onchange("partner_id")
     def _onchange_partner_id(self):
         res = super()._onchange_partner_id()
-        self._assign_mod190_fiscal_position()
+        self.add_keys(set_fiscal_position=False)
         return res
 
     @api.model_create_multi
     def create(self, vals_list):
         moves = super().create(vals_list)
-        moves._assign_mod190_fiscal_position()
+        moves.filtered(lambda x: not x.fiscal_position_id).add_keys(set_fiscal_position=True)
+        moves.filtered(lambda x: x.fiscal_position_id).add_keys(set_fiscal_position=False)
         return moves
+
+    def write(self, vals):
+        res = super().write(vals)
+        if "fiscal_position_id" in vals:
+            self.add_keys(set_fiscal_position=False)
+        return res

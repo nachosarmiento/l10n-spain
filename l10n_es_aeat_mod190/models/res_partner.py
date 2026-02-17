@@ -310,12 +310,6 @@ class ResPartner(models.Model):
     ad_required = fields.Integer(
         "Aditional data required", compute="_compute_ad_required"
     )
-    is_aeat_perception_subkey_visible = fields.Boolean(
-        compute="_compute_is_aeat_perception_subkey_visible"
-    )
-    is_first_child_computation_visible = fields.Boolean(
-        compute="_compute_is_first_child_computation_visible"
-    )
 
     @api.depends("aeat_perception_key_id", "aeat_perception_subkey_id")
     def _compute_ad_required(self):
@@ -324,39 +318,6 @@ class ResPartner(models.Model):
             if record.aeat_perception_subkey_id:
                 ad_required += record.aeat_perception_subkey_id.ad_required
             record.ad_required = ad_required
-
-    @api.depends("aeat_perception_key_id")
-    def _compute_is_aeat_perception_subkey_visible(self):
-        for record in self:
-            record.is_aeat_perception_subkey_visible = bool(
-                record.env["l10n.es.aeat.report.perception.subkey"].search(
-                    [
-                        (
-                            "aeat_perception_key_id",
-                            "=",
-                            record.aeat_perception_key_id.id,
-                        ),
-                    ]
-                )
-            )
-
-    @api.depends("aeat_perception_key_id", "aeat_perception_subkey_id")
-    def _compute_is_first_child_computation_visible(self):
-        aeat_perception_key_id = [  # A, C
-            "l10n_es_aeat_mod190.aeat_m190_perception_key_01",
-            "l10n_es_aeat_mod190.aeat_m190_perception_key_03",
-        ]
-        aeat_perception_subkey_id = [  # B01, B03
-            "l10n_es_aeat_mod190.aeat_m190_perception_subkey_02_01",
-            "l10n_es_aeat_mod190.aeat_m190_perception_subkey_02_03",
-        ]
-        for record in self:
-            record.is_first_child_computation_visible = (
-                record.aeat_perception_key_id
-                in {self.env.ref(item) for item in aeat_perception_key_id}
-                or record.aeat_perception_subkey_id
-                in {self.env.ref(item) for item in aeat_perception_subkey_id}
-            )
 
     @api.onchange("aeat_perception_key_id")
     def onchange_aeat_perception_key_id(self):

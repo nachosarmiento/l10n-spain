@@ -15,7 +15,7 @@ aeat_mod190_2025_main_export_line_13,aeat_mod190_2025_main_export_config,13,Rend
 aeat_mod190_2025_main_export_line_14,aeat_mod190_2025_main_export_config,14,Rendimientos del trabajo y en especie - Importe de las percepciones [02],float,16,2,right,True,N,," ",X,${object.casilla_02},,,,
 aeat_mod190_2025_main_export_line_15,aeat_mod190_2025_main_export_config,15,Rendimientos del trabajo y en especie - Importe de las retenciones [03],float,15,2,right,True,N,0," ",X,${object.casilla_03},,,,
 aeat_mod190_2025_main_export_line_16,aeat_mod190_2025_main_export_config,16,Correo electrónico,string,50,0,left,,N,0," ",X,${object.contact_email},,,,
-aeat_mod190_2025_main_export_line_17,aeat_mod190_2025_main_export_config,17,Reservado para la Administración. Rellenar con blancos,string,262,0,left,,N,0," ",X,,,,,
+aeat_mod190_2025_main_export_line_17,aeat_mod190_2025_main_export_config,17,Reservado para la Administración. Rellenar con blancos,string,261,0,left,,N,0," ",X,,,,,
 aeat_mod190_2025_main_export_line_18,aeat_mod190_2025_main_export_config,18,Reservado para el sello electrónico de la AEAT (13),string,13,0,left,,N,0," ",X,,,,,
 aeat_mod190_2025_main_export_line_19,aeat_mod190_2025_main_export_config,19,"Constante CRLF (Hexadecimal 0D0A, Decimal 1310)",string,2,0,left,,N,0," ",X,"${""\r\n""}",,,,
 aeat_mod190_2025_main_export_line_20,aeat_mod190_2025_main_export_config,20,Exportación modelo 190 - Tipo de Registro 2 – Registro de cliente,subconfig,0,0,,,N,0," ",X,,,,object.partner_record_ids,aeat_mod190_2025_partner_export_config

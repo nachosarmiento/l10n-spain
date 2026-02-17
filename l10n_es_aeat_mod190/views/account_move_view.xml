@@ -9,12 +9,11 @@
                     name="aeat_perception_key_id"
                     groups="l10n_es_aeat.group_account_aeat"
                 />
-                <field name="is_aeat_perception_subkey_visible" invisible="1" />
                 <field
                     name="aeat_perception_subkey_id"
                     groups="l10n_es_aeat.group_account_aeat"
                     domain="[('aeat_perception_key_id', '=', aeat_perception_key_id)]"
-                    invisible="not is_aeat_perception_subkey_visible"
+                    invisible="not aeat_perception_key_id or aeat_perception_key_id == %(l10n_es_aeat_mod190.aeat_m190_perception_key_01)d"
                 />
             </field>
         </field>

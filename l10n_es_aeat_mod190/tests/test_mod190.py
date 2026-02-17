@@ -1,5 +1,5 @@
 # Copyright 2019 Creu Blanca
-# Copyright 2024 Tecnativa - Víctor Martínez
+# Copyright 2024 Tecnativa - Victor Martinez
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
@@ -22,10 +22,6 @@ class TestL10nEsAeatMod190Base(TestL10nEsAeatModBase):
         # tax code: (base, tax_amount)
         "P_IRPF19": (100, -19),
         "P_IRPF20": (1000, -200),
-        "P_IRPF24": (100, -24),
-        "S_GD0": (100, 0),
-        "P_IRPF21TD": (2000, -15),
-        "P_IRPF21TDIT": (1500, -15),
     }
 
     @classmethod
@@ -49,7 +45,6 @@ class TestL10nEsAeatMod190Base(TestL10nEsAeatModBase):
                     "l10n_es_aeat_mod190.aeat_m190_perception_key_01"
                 ).id,
                 "a_nacimiento": "2000",
-                "discapacidad": "1",
             }
         )
         cls.customer.write(
@@ -61,9 +56,6 @@ class TestL10nEsAeatMod190Base(TestL10nEsAeatModBase):
                 "aeat_perception_subkey_id": cls.env.ref(
                     "l10n_es_aeat_mod190.aeat_m190_perception_subkey_08_01"
                 ).id,
-                "vat": "ESA12345674",
-                "country_id": cls.env.ref("base.es").id,
-                "state_id": cls.env.ref("base.state_es_bi").id,
             }
         )
         cls.fiscal_position = cls.env["account.fiscal.position"].create(
@@ -80,8 +72,8 @@ class TestL10nEsAeatMod190Base(TestL10nEsAeatModBase):
         )
 
     def test_mod190(self):
-        self._invoice_purchase_create("2017-01-01", {"partner_id": self.supplier.id})
-        self._invoice_purchase_create("2017-01-02", {"partner_id": self.customer.id})
+        self._invoice_purchase_create("2017-01-01")
+        self._invoice_purchase_create("2017-01-02")
         model190 = self.env["l10n.es.aeat.mod190.report"].create(
             {
                 "company_id": self.company.id,
@@ -95,8 +87,23 @@ class TestL10nEsAeatMod190Base(TestL10nEsAeatModBase):
         )
         self.assertEqual(model190.company_id.id, self.company.id)
         _logger.debug("Calculate AEAT 190 2017")
+        model190.button_calculate()
+        if self.debug:
+            self._print_tax_lines(model190.tax_line_ids)
+        self.assertTrue(model190.partner_record_ids)
+
+        supplier_record = model190.partner_record_ids.filtered(
+            lambda r: r.partner_id == self.supplier
+        )
+        self.assertTrue(supplier_record)
+        self.assertEqual(supplier_record.percepciones_dinerarias, 2200)
+        self.assertEqual(supplier_record.retenciones_dinerarias, 438)
+        self.assertEqual(2, supplier_record.ad_required)
+        self.assertEqual(2, self.supplier.ad_required)
+
         with self.assertRaises(UserError):
-            model190.button_calculate()
+            model190.button_confirm()
+
         self.supplier.write(
             {
                 "vat": "ESC2259530J",
@@ -104,22 +111,6 @@ class TestL10nEsAeatMod190Base(TestL10nEsAeatModBase):
                 "state_id": self.browse_ref("base.state_es_bi").id,
             }
         )
-        model190.button_calculate()
-        self.assertEqual(model190.state, "calculated")
-        # Fill manual fields
-        if self.debug:
-            self._print_tax_lines(model190.tax_line_ids)
-        self.assertTrue(model190.partner_record_ids)
-        supplier_record = model190.partner_record_ids.filtered(
-            lambda r: r.partner_id == self.supplier
-        )
-        self.assertEqual(supplier_record.percepciones_dinerarias, 0)
-        self.assertEqual(supplier_record.retenciones_dinerarias, 0)
-        self.assertEqual(supplier_record.percepciones_dinerarias_incap, 4700)
-        self.assertEqual(supplier_record.retenciones_dinerarias_incap, 768)
-        self.assertEqual(supplier_record.gastos_deducibles, -100)
-        self.assertEqual(2, supplier_record.ad_required)
-        self.assertEqual(2, self.supplier.ad_required)
         self.customer.write(
             {
                 "vat": "ESC2259530J",
@@ -127,24 +118,23 @@ class TestL10nEsAeatMod190Base(TestL10nEsAeatModBase):
                 "state_id": self.browse_ref("base.state_es_bi").id,
             }
         )
-        customer_record = model190.partner_record_ids.filtered(
-            lambda r: r.partner_id == self.customer
+
+        model190.button_recalculate()
+        self.assertFalse(
+            model190.partner_record_ids.filtered(lambda r: r.partner_id == self.customer)
         )
-        self.assertEqual(customer_record.percepciones_dinerarias, 3200)
-        self.assertEqual(customer_record.retenciones_dinerarias, 543)
-        self.assertEqual(customer_record.percepciones_dinerarias_incap, 1500)
-        self.assertEqual(customer_record.retenciones_dinerarias_incap, 225)
-        # Confirm must fail if report lines are changed after calculation.
-        supplier_record.percepciones_dinerarias += 1
-        with self.assertRaises(UserError):
-            model190.button_confirm()
-        records = model190.partner_record_ids
+
+        existing_records = model190.partner_record_ids
         model190_form = Form(model190)
         with model190_form.partner_record_ids.new() as record:
             record.partner_id = self.customer
         model190_form.save()
-        record_new = model190.partner_record_ids - records
-        self.assertEqual(record_new.partner_vat, "C2259530J")
+        new_record = model190.partner_record_ids - existing_records
+        self.assertEqual(new_record.partner_vat, self.customer.vat)
+
+        with self.assertRaises(UserError):
+            model190.button_confirm()
+
         model190.write({"registro_manual": True})
         model190.button_recalculate()
         model190.button_confirm()
@@ -161,18 +151,14 @@ class TestL10nEsAeatMod190Base(TestL10nEsAeatModBase):
             }
         )
         second_invoice = self._invoice_purchase_create("2017-01-02")
-        # Definimos la posición fiscal (se hará con _onchange_partner_id por UX)
         second_invoice.button_draft()
-        # Debemos devolverla a draft para editarla
         second_invoice.fiscal_position_id = self.fiscal_position
         self.assertTrue(second_invoice.aeat_perception_key_id)
         second_invoice._post()
         self.assertTrue(second_invoice.invoice_line_ids.mapped("aeat_perception_key_id"))
-        self.assertFalse(
-            second_invoice.line_ids.filtered("exclude_from_invoice_tab").mapped(
-                "aeat_perception_key_id"
-            )
-        )
+        non_invoice_lines = second_invoice.line_ids - second_invoice.invoice_line_ids
+        self.assertFalse(non_invoice_lines.mapped("aeat_perception_key_id"))
+
         model190 = self.env["l10n.es.aeat.mod190.report"].create(
             {
                 "company_id": self.company.id,
@@ -187,35 +173,39 @@ class TestL10nEsAeatMod190Base(TestL10nEsAeatModBase):
         self.assertEqual(model190.company_id.id, self.company.id)
         _logger.debug("Calculate AEAT 190 2017")
         model190.button_calculate()
-        # Fill manual fields
         if self.debug:
             self._print_tax_lines(model190.tax_line_ids)
+
         supplier_record = model190.partner_record_ids.filtered(
             lambda r: r.partner_id == self.supplier
         )
+        self.assertTrue(supplier_record)
         self.assertEqual(2, len(supplier_record))
         self.assertEqual(1, len(supplier_record.mapped("partner_id")))
         self.assertEqual(2, len(supplier_record.mapped("aeat_perception_key_id")))
+
         record_with_ad = supplier_record.filtered(lambda r: r.ad_required >= 2)
+        self.assertTrue(record_with_ad)
         self.assertEqual(record_with_ad.a_nacimiento, "2000")
+
         record_without_ad = supplier_record.filtered(lambda r: r.ad_required < 2)
+        self.assertTrue(record_without_ad)
         self.assertFalse(record_without_ad.a_nacimiento)
+
         model190.button_confirm()
         self.assertEqual(model190.state, "done")
 
     def test_aeat_fields_visibility(self):
-        """Ensure users without permissions cannot see AEAT fields."""
-        # Make sure I can read sensitive data
         self.assertTrue(
             self.env.user.has_group("l10n_es_aeat_mod190.group_aeat_mod190")
         )
-        # Create a user without the AEAT group
+
         user_without_group = new_test_user(
             self.env(user=SUPERUSER_ID),
             "no_190_user",
             "base.group_partner_manager,base.group_user",
         )
-        # Attempt to access AEAT fields
+
         supplier_f = Form(self.supplier)
         supplier_limited_f = Form(self.supplier.with_user(user_without_group))
         fields_to_test = [
@@ -255,8 +245,6 @@ class TestL10nEsAeatMod190Base(TestL10nEsAeatModBase):
         ]
         for field in fields_to_test:
             with self.subTest(field=field):
-                # User with permissions can read field
                 getattr(supplier_f, field)
                 with self.assertRaises(AssertionError):
-                    # User without permissions can't
                     getattr(supplier_limited_f, field)

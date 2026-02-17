@@ -24,6 +24,7 @@ def _migrate_partner_subkeys_from_csv(env):
         return
 
     cr = env.cr
+    cr.execute("DROP TABLE IF EXISTS tmp_mod190_partner_subkeys")
     cr.execute(
         """
         CREATE TEMP TABLE tmp_mod190_partner_subkeys (
@@ -32,7 +33,7 @@ def _migrate_partner_subkeys_from_csv(env):
             partner_name varchar,
             key_code varchar,
             subkey_name varchar
-        )
+        ) ON COMMIT DROP
         """
     )
     with csv_path.open("r", encoding="utf-8") as csv_file:
@@ -117,6 +118,7 @@ def _migrate_partner_subkeys_from_csv(env):
         updated_by_id,
         updated_by_vat,
     )
+    cr.execute("DROP TABLE IF EXISTS tmp_mod190_partner_subkeys")
 
 
 @openupgrade.migrate()

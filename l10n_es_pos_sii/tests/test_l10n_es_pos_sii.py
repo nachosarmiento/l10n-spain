@@ -1,5 +1,6 @@
 # Copyright 2023 Aures Tic - Almudena de la Puente <almudena@aurestic.es>
 # Copyright 2023 Aures Tic - Jose Zambudio <jose@aurestic.es>
+# Copyright 2026 Tecnativa - Pedro M. Baeza
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html)
 
 import json
@@ -73,22 +74,14 @@ class TestSpainPosSii(TestPoSCommon, TestL10nEsAeatSiiBase):
         cls.tax_account = cls.env.ref(
             f"account.{cls.env.user.company_id.id}_account_common_477"
         )
-        cls.tax_10b = cls.env.ref(
-            f"account.{cls.env.user.company_id.id}_account_tax_template_s_iva10b"
+        cls.tax_10s = cls.env.ref(
+            f"account.{cls.env.user.company_id.id}_account_tax_template_s_iva10s"
         )
         cls.product21 = cls.create_product(
-            "Product 21b",
-            cls.categ_basic,
-            100.0,
-            100.0,
-            tax_ids=cls.tax_21b.ids,
+            "Product 21b", cls.categ_basic, 100.0, 100.0, tax_ids=cls.tax_21b.ids
         )
         cls.product10 = cls.create_product(
-            "Product 10b",
-            cls.categ_basic,
-            100.0,
-            100.0,
-            tax_ids=cls.tax_10b.ids,
+            "Product 10b", cls.categ_basic, 100.0, 100.0, tax_ids=cls.tax_10s.ids
         )
 
     def setUp(self):
@@ -246,12 +239,12 @@ class TestSpainPosSii(TestPoSCommon, TestL10nEsAeatSiiBase):
                 "json": "sii_pos_order_iva21b.json",
                 "name": "Shop0001",
             },
-            self.tax_10b: {
-                "json": "sii_pos_order_iva10b.json",
+            self.tax_10s: {
+                "json": "sii_pos_order_iva10s.json",
                 "name": "Shop0002",
             },
-            (self.tax_10b + self.tax_21b): {
-                "json": "sii_pos_order_iva21b_iva10b.json",
+            (self.tax_10s + self.tax_21b): {
+                "json": "sii_pos_order_iva21b_iva10s.json",
                 "name": "Shop0003",
             },
         }
@@ -261,6 +254,7 @@ class TestSpainPosSii(TestPoSCommon, TestL10nEsAeatSiiBase):
             )
             order.write(
                 {
+                    "is_l10n_es_simplified_invoice": True,
                     "l10n_es_unique_id": json_by_taxes.get(taxes, {}).get("name"),
                     "date_order": "2023-06-14",
                 }
@@ -326,6 +320,7 @@ class TestSpainPosSii(TestPoSCommon, TestL10nEsAeatSiiBase):
         refund_order.write(
             {
                 "l10n_es_unique_id": "Shop0004",
+                "is_l10n_es_simplified_invoice": True,
                 "date_order": "2023-06-14",
             }
         )
@@ -334,11 +329,9 @@ class TestSpainPosSii(TestPoSCommon, TestL10nEsAeatSiiBase):
 
     def test_06_automatic_send(self):
         self.company.send_mode = "auto"
-
         cash = self.cash_pm1
         pos_session = self._start_pos_session(cash, 462.0)
-
-        self._create_orders(
+        order = self._create_orders(
             [
                 {
                     "pos_order_lines_ui_args": [(self.product21, 1)],
@@ -348,53 +341,60 @@ class TestSpainPosSii(TestPoSCommon, TestL10nEsAeatSiiBase):
                     "uuid": "00100-010-0004",
                 },
             ]
+        ).get("00100-010-0004")
+        order.write(
+            {"l10n_es_unique_id": "Shop0005", "is_l10n_es_simplified_invoice": True}
         )
-
         pos_session.post_closing_cash_details(583.0)
         sii_send_cron = self.env.ref("l10n_es_aeat_sii_oca.invoice_send_to_sii")
         Trigger = self.env["ir.cron.trigger"].sudo()
         before = Trigger.search_count([("cron_id", "=", sii_send_cron.id)])
-
         pos_session.close_session_from_ui()
-
         after = Trigger.search_count([("cron_id", "=", sii_send_cron.id)])
         self.assertEqual(after, before + 1)
-
         trigger = Trigger.search(
             [("cron_id", "=", sii_send_cron.id)], order="id desc", limit=1
         )
         self.assertTrue(trigger)
         self.assertTrue(trigger.call_at)
 
-    def test_07_export_for_ui_session_is_closed(self):
-        cash = self.cash_pm1
-        pos_session = self._start_pos_session(cash, 462.0)
-        self._create_orders(
-            [
-                {
-                    "pos_order_lines_ui_args": [(self.product21, 1)],
-                    "payments": [(cash, 121)],
-                    "customer": False,
-                    "is_invoiced": False,
-                    "uuid": "00100-010-0004",
-                },
-            ]
+    def test_07_search_sii_enabled(self):
+        order = self.order
+        false_domain = [("id", "=", order.id), ("sii_enabled", "=", False)]
+        true_domain = [("id", "=", order.id), ("sii_enabled", "=", True)]
+        PosOrder = self.env["pos.order"]
+        # Non simplified: no SII enabled
+        self.assertFalse(order.sii_enabled)
+        self.assertTrue(PosOrder.search(false_domain))
+        self.assertFalse(PosOrder.search(true_domain))
+        # Simplified: SII enabled
+        order.is_l10n_es_simplified_invoice = True
+        self.assertTrue(order.sii_enabled)
+        self.assertFalse(PosOrder.search(false_domain))
+        self.assertTrue(PosOrder.search(true_domain))
+        # Fiscal position with SII enabled and simplified
+        fp = (
+            self.env["account.fiscal.position"]
+            .sudo()
+            .create({"name": "Test PoS SII FP", "aeat_active": True})
         )
-        res = pos_session.order_ids.read(["sii_session_closed"])
-        self.assertTrue(
-            all(
-                "sii_session_closed" in x and x["sii_session_closed"] is False
-                for x in res
-            ),
-            "The session is not closed",
-        )
-        pos_session.post_closing_cash_details(583.0)
-        pos_session.close_session_from_ui()
-        res = pos_session.order_ids.read(["sii_session_closed"])
-        self.assertTrue(
-            all(
-                "sii_session_closed" in x and x["sii_session_closed"] is True
-                for x in res
-            ),
-            "The session is closed",
-        )
+        order.fiscal_position_id = fp.id
+        self.assertTrue(order.sii_enabled)
+        self.assertFalse(PosOrder.search(false_domain))
+        self.assertTrue(PosOrder.search(true_domain))
+        # Fiscal position with SII not enabled and simplified
+        fp.aeat_active = False
+        self.assertFalse(order.sii_enabled)
+        self.assertTrue(PosOrder.search(false_domain))
+        self.assertFalse(PosOrder.search(true_domain))
+        # Fiscal position with SII enabled and not simplified
+        fp.aeat_active = True
+        order.is_l10n_es_simplified_invoice = False
+        self.assertFalse(order.sii_enabled)
+        self.assertTrue(PosOrder.search(false_domain))
+        self.assertFalse(PosOrder.search(true_domain))
+        # Fiscal position with SII not enabled and not simplified
+        fp.aeat_active = False
+        self.assertFalse(order.sii_enabled)
+        self.assertTrue(PosOrder.search(false_domain))
+        self.assertFalse(PosOrder.search(true_domain))

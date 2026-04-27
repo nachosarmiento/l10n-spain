@@ -2,6 +2,8 @@
 # Copyright 2024 Tecnativa - Victor Martinez
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from collections import defaultdict
+
 from odoo import _, api, exceptions, fields, models
 from odoo.tools import float_compare
 
@@ -346,11 +348,20 @@ class L10nEsAeatMod190ReportLine(models.Model):
         string="Income on account in kind made as a result of incapacity for work"
     )
     ingresos_a_cuenta_repercutidos_incap = fields.Float(
-        string="Income to account in kind, repercussions derived from incapacity for work"
+        string="Income to account in kind, repercussions derived from "
+        "incapacity for work",
+        compute="_compute_percepciones",
+        store=True,
     )
-    codigo_provincia = fields.Char(string="State ISO code")
-
-    a_nacimiento = fields.Char(string="Year of birth")
+    codigo_provincia = fields.Char(
+        string="State ISO code",
+        compute="_compute_codigo_provincia",
+        store=True,
+    )
+    # DATOS ADICIONALES (solo en las claves A, B.01, B.03, B.04, B.99, C, E.01 y E.02).
+    a_nacimiento = fields.Char(
+        string="Year of birth", compute="_compute_partner_id_ad_required", store=True
+    )
     situacion_familiar = fields.Selection(
         selection=[
             (
@@ -501,6 +512,127 @@ class L10nEsAeatMod190ReportLine(models.Model):
             if record.aeat_perception_subkey_id:
                 ad_required += record.aeat_perception_subkey_id.ad_required
             record.ad_required = ad_required
+
+    @api.depends("partner_id", "ad_required")
+    def _compute_partner_id_ad_required(self):
+        """Utilizamos el mismo compute para reducir código al tener la misma lógica."""
+        for item in self.filtered(lambda x: x.ad_required >= 2):
+            partner = item.partner_id
+            item.a_nacimiento = partner.a_nacimiento
+            item.discapacidad = partner.discapacidad
+            item.movilidad_geografica = partner.movilidad_geografica
+            item.representante_legal_vat = partner.representante_legal_vat
+            item.situacion_familiar = partner.situacion_familiar
+            item.nif_conyuge = partner.nif_conyuge
+            item.contrato_o_relacion = partner.contrato_o_relacion
+            item.hijos_y_descendientes_m = partner.hijos_y_descendientes_m
+            item.hijos_y_descendientes_m_entero = partner.hijos_y_descendientes_m_entero
+            item.hijos_y_descendientes = partner.hijos_y_descendientes
+            item.hijos_y_descendientes_entero = partner.hijos_y_descendientes_entero
+            item.computo_primeros_hijos_1 = partner.computo_primeros_hijos_1
+            item.computo_primeros_hijos_2 = partner.computo_primeros_hijos_2
+            item.computo_primeros_hijos_3 = partner.computo_primeros_hijos_3
+            item.hijos_y_desc_discapacidad_33 = partner.hijos_y_desc_discapacidad_33
+            item.hijos_y_desc_discapacidad_entero_33 = (
+                partner.hijos_y_desc_discapacidad_entero_33
+            )
+            item.hijos_y_desc_discapacidad_mr = partner.hijos_y_desc_discapacidad_mr
+            item.hijos_y_desc_discapacidad_entero_mr = (
+                partner.hijos_y_desc_discapacidad_entero_mr
+            )
+            item.hijos_y_desc_discapacidad_66 = partner.hijos_y_desc_discapacidad_66
+            item.hijos_y_desc_discapacidad_entero_66 = (
+                partner.hijos_y_desc_discapacidad_entero_66
+            )
+            item.ascendientes = partner.ascendientes
+            item.ascendientes_entero = partner.ascendientes_entero
+            item.ascendientes_m75 = partner.ascendientes_m75
+            item.ascendientes_entero_m75 = partner.ascendientes_entero_m75
+            item.ascendientes_discapacidad_33 = partner.ascendientes_discapacidad_33
+            item.ascendientes_discapacidad_entero_33 = (
+                partner.ascendientes_discapacidad_entero_33
+            )
+            item.ascendientes_discapacidad_mr = partner.ascendientes_discapacidad_mr
+            item.ascendientes_discapacidad_entero_mr = (
+                partner.ascendientes_discapacidad_entero_mr
+            )
+            item.ascendientes_discapacidad_66 = partner.ascendientes_discapacidad_66
+            item.ascendientes_discapacidad_entero_66 = (
+                partner.ascendientes_discapacidad_entero_66
+            )
+
+    # Calculo campos SIN incapacidad
+    @api.depends("report_id", "report_id.tax_line_ids", "discapacidad")
+    def _compute_percepciones(self):
+        tax_data = defaultdict(lambda: defaultdict(dict))
+        domain = []
+        if len(self.partner_id) == 1:
+            # This should only happen when we are making a small update on
+            # 'discapacidad'
+            domain.append(("partner_id", "=", self.partner_id.id))
+        for report in self.report_id:
+            if report.tax_line_ids:
+                tax_data[report.id] = {
+                    str(line.field_number): report._get_grouped_data(
+                        line.field_number, domain
+                    )
+                    for line in report.tax_line_ids
+                }
+        for item in self:
+            keys = [
+                (
+                    item.partner_id.id,
+                    item.aeat_perception_key_id.id,
+                    item.aeat_perception_subkey_id.id,
+                )
+            ]
+            if (
+                item.partner_id.aeat_perception_key_id == item.aeat_perception_key_id
+                and item.aeat_perception_subkey_id
+                == item.partner_id.aeat_perception_subkey_id
+            ):
+                keys.append((item.partner_id.id, False, False))
+            incapacidad = item.discapacidad and item.discapacidad != "0"
+            percepciones_dinerarias = -sum(
+                tax_data[item.report_id.id]["11"].get(key, 0) for key in keys
+            ) - sum(tax_data[item.report_id.id]["15"].get(key, 0) for key in keys)
+            retenciones_dinerarias = sum(
+                tax_data[item.report_id.id]["12"].get(key, 0) for key in keys
+            ) + sum(tax_data[item.report_id.id]["16"].get(key, 0) for key in keys)
+            percepciones_en_especie = -sum(
+                tax_data[item.report_id.id]["13"].get(key, 0) for key in keys
+            )
+            ingresos_a_cuenta_efectuados = sum(
+                tax_data[item.report_id.id]["14"].get(key, 0) for key in keys
+            )
+            percepciones_dinerarias_incap = (
+                incapacidad and percepciones_dinerarias
+            ) - sum(tax_data[item.report_id.id]["18"].get(key, 0) for key in keys)
+            retenciones_dinerarias_incap = (
+                incapacidad and retenciones_dinerarias
+            ) + sum(tax_data[item.report_id.id]["19"].get(key, 0) for key in keys)
+
+            item.percepciones_dinerarias = not incapacidad and percepciones_dinerarias
+            item.percepciones_dinerarias_incap = percepciones_dinerarias_incap
+            item.retenciones_dinerarias = not incapacidad and retenciones_dinerarias
+            item.retenciones_dinerarias_incap = retenciones_dinerarias_incap
+            item.percepciones_en_especie = not incapacidad and percepciones_en_especie
+            item.percepciones_en_especie_incap = incapacidad and percepciones_en_especie
+            item.ingresos_a_cuenta_efectuados = (
+                not incapacidad and ingresos_a_cuenta_efectuados
+            )
+            item.ingresos_a_cuenta_efectuados_incap = (
+                incapacidad and ingresos_a_cuenta_efectuados
+            )
+            item.ingresos_a_cuenta_repercutidos = (
+                not incapacidad and ingresos_a_cuenta_efectuados
+            )
+            item.ingresos_a_cuenta_repercutidos_incap = (
+                incapacidad and ingresos_a_cuenta_efectuados
+            )
+            item.gastos_deducibles = sum(
+                tax_data[item.report_id.id]["17"].get(key, 0) for key in keys
+            )
 
     @api.depends("aeat_perception_key_id", "aeat_perception_subkey_id")
     def _compute_visible_key_b01(self):

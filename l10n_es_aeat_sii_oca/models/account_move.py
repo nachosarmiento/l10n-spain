@@ -15,6 +15,8 @@
 import json
 import logging
 
+from unidecode import unidecode
+
 from odoo import api, fields, models
 from odoo.exceptions import UserError
 from odoo.modules.registry import Registry
@@ -217,16 +219,6 @@ class AccountMove(models.Model):
     def _get_tax_info(self):
         # Use the method at l10n_es_aeat that returns the needed info
         return self._get_aeat_tax_info()
-
-    @api.model
-    def _merge_tax_dict(self, vat_list, tax_dict, comp_key, merge_keys):
-        """Helper method for merging values in an existing tax dictionary."""
-        for existing_dict in vat_list:
-            if existing_dict.get(comp_key, "-99") == tax_dict.get(comp_key, "-99"):
-                for key in merge_keys:
-                    existing_dict[key] += tax_dict[key]
-                return True
-        return False
 
     def _get_sii_in_taxes(self):
         """Get the taxes for purchase invoices.
@@ -520,6 +512,7 @@ class AccountMove(models.Model):
 
     def _cancel_invoice_to_sii(self):
         for invoice in self.filtered(lambda i: i.state in ["cancel"]):
+            # TODO: Move communication code to sii.mixin
             serv = invoice._connect_aeat(invoice.move_type)
             header = invoice._get_aeat_header(cancellation=True)
             inv_vals = {
@@ -678,6 +671,7 @@ class AccountMove(models.Model):
                     names = invoice.mapped("invoice_line_ids.name") or invoice.mapped(
                         "invoice_line_ids.ref"
                     )
+                    names = [unidecode(x) for x in names if x]  # Avoid "ugly" chars
                     description += " - ".join(filter(None, names))
             invoice.sii_description = (description or "")[:500] or "/"
 
@@ -818,23 +812,7 @@ class AccountMove(models.Model):
         documents = all_documents[:batch]
         remaining_documents = all_documents - documents
         for doc in documents:
-            try:
-                with self.env.cr.savepoint():
-                    doc.confirm_one_document()
-                    doc.sii_send_date = False
-            except Exception as fault:
-                new_cr = Registry(self.env.cr.dbname).cursor()
-                env = api.Environment(new_cr, self.env.uid, self.env.context)
-                doc_vals = {
-                    "aeat_send_failed": True,
-                    "aeat_send_error": repr(fault)[:60],
-                    "sii_send_date": False,
-                    "sii_return": repr(fault),
-                }
-                invoice = env["account.move"].browse(doc.id)
-                invoice.write(doc_vals)
-                new_cr.commit()
-                new_cr.close()
+            doc.confirm_one_document()
         return remaining_documents
 
     @api.model

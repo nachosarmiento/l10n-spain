@@ -262,3 +262,30 @@ def migrate(cr, version):
         "AEAT migration: states updated %s, errors updated %s, payloads updated %s",
         s1 + s2, e1 + e2, p1 + p2
     )
+
+    # Safety pass: facturas con sii_csv pero aeat_state = 'not_sent'.
+    # Ocurre cuando los CSV de exportación de Odoo 16 no estaban disponibles.
+    cr.execute("""
+        UPDATE account_move
+           SET aeat_state = 'sent'
+         WHERE sii_csv IS NOT NULL AND sii_csv != ''
+           AND aeat_state = 'not_sent'
+           AND state = 'posted'
+           AND move_type IN ('out_invoice','out_refund','in_invoice','in_refund')
+    """)
+    posted = cr.rowcount
+    cr.execute("""
+        UPDATE account_move
+           SET aeat_state = 'cancelled'
+         WHERE sii_csv IS NOT NULL AND sii_csv != ''
+           AND aeat_state = 'not_sent'
+           AND state = 'cancel'
+           AND move_type IN ('out_invoice','out_refund','in_invoice','in_refund')
+    """)
+    cancelled = cr.rowcount
+    if posted or cancelled:
+        _logger.info(
+            "AEAT migration safety pass: corregidas %s facturas posted → 'sent', "
+            "%s facturas cancel → 'cancelled'",
+            posted, cancelled,
+        )

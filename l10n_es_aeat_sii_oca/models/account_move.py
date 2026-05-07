@@ -470,6 +470,8 @@ class AccountMove(models.Model):
 
     def _sii_invoice_dict_not_modified(self):
         self.ensure_one()
+        if not self.aeat_content_sent:
+            return False
         to_send = self._get_aeat_invoice_dict()
         content_sent = json.loads(self.aeat_content_sent)
         return to_send == content_sent
